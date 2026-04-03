@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude internal
+.claude/
+
+# Affinity Designer source files
+*.af
+
+# Other projects/experiments in this directory
+PaxPamir/
+hazard-battle.html
+tools/
+OVERHAUL_PLAN.md

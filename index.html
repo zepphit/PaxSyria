@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PaxSyria Engine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Toolbar -->
+  <header id="toolbar">
+    <div class="toolbar-group">
+      <span class="toolbar-title">PaxSyria Engine</span>
+    </div>
+    <div class="toolbar-group">
+      <button id="btn-undo" title="Undo (Ctrl+Z)">&#x21A9; Undo</button>
+      <button id="btn-redo" title="Redo (Ctrl+Y)">&#x21AA; Redo</button>
+    </div>
+    <div class="toolbar-group">
+      <button id="btn-save" title="Save (Ctrl+S)">&#x1F4BE; Save</button>
+      <button id="btn-load" title="Load">&#x1F4C2; Load</button>
+    </div>
+    <div class="toolbar-group">
+      <button id="btn-zoom-in" title="Zoom In (+)">+</button>
+      <button id="btn-zoom-out" title="Zoom Out (-)">−</button>
+      <button id="btn-zoom-fit" title="Fit">Fit</button>
+      <span id="zoom-level">100%</span>
+    </div>
+  </header>
+
+  <!-- Main board area with pan/zoom container -->
+  <div id="viewport">
+    <div id="board">
+      <!-- Objects rendered here by js/renderer.js -->
+    </div>
+  </div>
+
+  <!-- Hidden file input for loading saves -->
+  <input type="file" id="file-input" accept=".json" style="display:none">
+
+  <!-- Context menu (hidden by default) -->
+  <div id="context-menu" class="context-menu" style="display:none"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

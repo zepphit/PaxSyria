@@ -1,0 +1,9 @@
+{
+  "name": "paxsyria",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Digital tabletop engine for Pax Pamir 2E / Pax Syria",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

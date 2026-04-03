@@ -1,0 +1,466 @@
+[
+  {
+    "id": "c001",
+    "image": "assets/cards/card_001.png"
+  },
+  {
+    "id": "c002",
+    "image": "assets/cards/card_002.png"
+  },
+  {
+    "id": "c003",
+    "image": "assets/cards/card_003.png"
+  },
+  {
+    "id": "c004",
+    "image": "assets/cards/card_004.png"
+  },
+  {
+    "id": "c005",
+    "image": "assets/cards/card_005.png"
+  },
+  {
+    "id": "c006",
+    "image": "assets/cards/card_006.png"
+  },
+  {
+    "id": "c007",
+    "image": "assets/cards/card_007.png"
+  },
+  {
+    "id": "c008",
+    "image": "assets/cards/card_008.png"
+  },
+  {
+    "id": "c009",
+    "image": "assets/cards/card_009.png"
+  },
+  {
+    "id": "c010",
+    "image": "assets/cards/card_010.png"
+  },
+  {
+    "id": "c011",
+    "image": "assets/cards/card_011.png"
+  },
+  {
+    "id": "c012",
+    "image": "assets/cards/card_012.png"
+  },
+  {
+    "id": "c013",
+    "image": "assets/cards/card_013.png"
+  },
+  {
+    "id": "c014",
+    "image": "assets/cards/card_014.png"
+  },
+  {
+    "id": "c015",
+    "image": "assets/cards/card_015.png"
+  },
+  {
+    "id": "c016",
+    "image": "assets/cards/card_016.png"
+  },
+  {
+    "id": "c017",
+    "image": "assets/cards/card_017.png"
+  },
+  {
+    "id": "c018",
+    "image": "assets/cards/card_018.png"
+  },
+  {
+    "id": "c019",
+    "image": "assets/cards/card_019.png"
+  },
+  {
+    "id": "c020",
+    "image": "assets/cards/card_020.png"
+  },
+  {
+    "id": "c021",
+    "image": "assets/cards/card_021.png"
+  },
+  {
+    "id": "c022",
+    "image": "assets/cards/card_022.png"
+  },
+  {
+    "id": "c023",
+    "image": "assets/cards/card_023.png"
+  },
+  {
+    "id": "c024",
+    "image": "assets/cards/card_024.png"
+  },
+  {
+    "id": "c025",
+    "image": "assets/cards/card_025.png"
+  },
+  {
+    "id": "c026",
+    "image": "assets/cards/card_026.png"
+  },
+  {
+    "id": "c027",
+    "image": "assets/cards/card_027.png"
+  },
+  {
+    "id": "c028",
+    "image": "assets/cards/card_028.png"
+  },
+  {
+    "id": "c029",
+    "image": "assets/cards/card_029.png"
+  },
+  {
+    "id": "c030",
+    "image": "assets/cards/card_030.png"
+  },
+  {
+    "id": "c031",
+    "image": "assets/cards/card_031.png"
+  },
+  {
+    "id": "c032",
+    "image": "assets/cards/card_032.png"
+  },
+  {
+    "id": "c033",
+    "image": "assets/cards/card_033.png"
+  },
+  {
+    "id": "c034",
+    "image": "assets/cards/card_034.png"
+  },
+  {
+    "id": "c035",
+    "image": "assets/cards/card_035.png"
+  },
+  {
+    "id": "c036",
+    "image": "assets/cards/card_036.png"
+  },
+  {
+    "id": "c037",
+    "image": "assets/cards/card_037.png"
+  },
+  {
+    "id": "c038",
+    "image": "assets/cards/card_038.png"
+  },
+  {
+    "id": "c039",
+    "image": "assets/cards/card_039.png"
+  },
+  {
+    "id": "c040",
+    "image": "assets/cards/card_040.png"
+  },
+  {
+    "id": "c041",
+    "image": "assets/cards/card_041.png"
+  },
+  {
+    "id": "c042",
+    "image": "assets/cards/card_042.png"
+  },
+  {
+    "id": "c043",
+    "image": "assets/cards/card_043.png"
+  },
+  {
+    "id": "c044",
+    "image": "assets/cards/card_044.png"
+  },
+  {
+    "id": "c045",
+    "image": "assets/cards/card_045.png"
+  },
+  {
+    "id": "c046",
+    "image": "assets/cards/card_046.png"
+  },
+  {
+    "id": "c047",
+    "image": "assets/cards/card_047.png"
+  },
+  {
+    "id": "c048",
+    "image": "assets/cards/card_048.png"
+  },
+  {
+    "id": "c049",
+    "image": "assets/cards/card_049.png"
+  },
+  {
+    "id": "c050",
+    "image": "assets/cards/card_050.png"
+  },
+  {
+    "id": "c051",
+    "image": "assets/cards/card_051.png"
+  },
+  {
+    "id": "c052",
+    "image": "assets/cards/card_052.png"
+  },
+  {
+    "id": "c053",
+    "image": "assets/cards/card_053.png"
+  },
+  {
+    "id": "c054",
+    "image": "assets/cards/card_054.png"
+  },
+  {
+    "id": "c055",
+    "image": "assets/cards/card_055.png"
+  },
+  {
+    "id": "c056",
+    "image": "assets/cards/card_056.png"
+  },
+  {
+    "id": "c057",
+    "image": "assets/cards/card_057.png"
+  },
+  {
+    "id": "c058",
+    "image": "assets/cards/card_058.png"
+  },
+  {
+    "id": "c059",
+    "image": "assets/cards/card_059.png"
+  },
+  {
+    "id": "c060",
+    "image": "assets/cards/card_060.png"
+  },
+  {
+    "id": "c061",
+    "image": "assets/cards/card_061.png"
+  },
+  {
+    "id": "c062",
+    "image": "assets/cards/card_062.png"
+  },
+  {
+    "id": "c063",
+    "image": "assets/cards/card_063.png"
+  },
+  {
+    "id": "c064",
+    "image": "assets/cards/card_064.png"
+  },
+  {
+    "id": "c065",
+    "image": "assets/cards/card_065.png"
+  },
+  {
+    "id": "c066",
+    "image": "assets/cards/card_066.png"
+  },
+  {
+    "id": "c067",
+    "image": "assets/cards/card_067.png"
+  },
+  {
+    "id": "c068",
+    "image": "assets/cards/card_068.png"
+  },
+  {
+    "id": "c069",
+    "image": "assets/cards/card_069.png"
+  },
+  {
+    "id": "c070",
+    "image": "assets/cards/card_070.png"
+  },
+  {
+    "id": "c071",
+    "image": "assets/cards/card_071.png"
+  },
+  {
+    "id": "c072",
+    "image": "assets/cards/card_072.png"
+  },
+  {
+    "id": "c073",
+    "image": "assets/cards/card_073.png"
+  },
+  {
+    "id": "c074",
+    "image": "assets/cards/card_074.png"
+  },
+  {
+    "id": "c075",
+    "image": "assets/cards/card_075.png"
+  },
+  {
+    "id": "c076",
+    "image": "assets/cards/card_076.png"
+  },
+  {
+    "id": "c077",
+    "image": "assets/cards/card_077.png"
+  },
+  {
+    "id": "c078",
+    "image": "assets/cards/card_078.png"
+  },
+  {
+    "id": "c079",
+    "image": "assets/cards/card_079.png"
+  },
+  {
+    "id": "c080",
+    "image": "assets/cards/card_080.png"
+  },
+  {
+    "id": "c081",
+    "image": "assets/cards/card_081.png"
+  },
+  {
+    "id": "c082",
+    "image": "assets/cards/card_082.png"
+  },
+  {
+    "id": "c083",
+    "image": "assets/cards/card_083.png"
+  },
+  {
+    "id": "c084",
+    "image": "assets/cards/card_084.png"
+  },
+  {
+    "id": "c085",
+    "image": "assets/cards/card_085.png"
+  },
+  {
+    "id": "c086",
+    "image": "assets/cards/card_086.png"
+  },
+  {
+    "id": "c087",
+    "image": "assets/cards/card_087.png"
+  },
+  {
+    "id": "c088",
+    "image": "assets/cards/card_088.png"
+  },
+  {
+    "id": "c089",
+    "image": "assets/cards/card_089.png"
+  },
+  {
+    "id": "c090",
+    "image": "assets/cards/card_090.png"
+  },
+  {
+    "id": "c091",
+    "image": "assets/cards/card_091.png"
+  },
+  {
+    "id": "c092",
+    "image": "assets/cards/card_092.png"
+  },
+  {
+    "id": "c093",
+    "image": "assets/cards/card_093.png"
+  },
+  {
+    "id": "c094",
+    "image": "assets/cards/card_094.png"
+  },
+  {
+    "id": "c095",
+    "image": "assets/cards/card_095.png"
+  },
+  {
+    "id": "c096",
+    "image": "assets/cards/card_096.png"
+  },
+  {
+    "id": "c097",
+    "image": "assets/cards/card_097.png"
+  },
+  {
+    "id": "c098",
+    "image": "assets/cards/card_098.png"
+  },
+  {
+    "id": "c099",
+    "image": "assets/cards/card_099.png"
+  },
+  {
+    "id": "c100",
+    "image": "assets/cards/card_100.png"
+  },
+  {
+    "id": "c101",
+    "image": "assets/cards/card_101.png"
+  },
+  {
+    "id": "c102",
+    "image": "assets/cards/card_102.png"
+  },
+  {
+    "id": "c103",
+    "image": "assets/cards/card_103.png"
+  },
+  {
+    "id": "c104",
+    "image": "assets/cards/card_104.png"
+  },
+  {
+    "id": "c105",
+    "image": "assets/cards/card_105.png"
+  },
+  {
+    "id": "c106",
+    "image": "assets/cards/card_106.png"
+  },
+  {
+    "id": "c107",
+    "image": "assets/cards/card_107.png"
+  },
+  {
+    "id": "c108",
+    "image": "assets/cards/card_108.png"
+  },
+  {
+    "id": "c109",
+    "image": "assets/cards/card_109.png"
+  },
+  {
+    "id": "c110",
+    "image": "assets/cards/card_110.png"
+  },
+  {
+    "id": "c111",
+    "image": "assets/cards/card_111.png"
+  },
+  {
+    "id": "c112",
+    "image": "assets/cards/card_112.png"
+  },
+  {
+    "id": "c113",
+    "image": "assets/cards/card_113.png"
+  },
+  {
+    "id": "c114",
+    "image": "assets/cards/card_114.png"
+  },
+  {
+    "id": "c115",
+    "image": "assets/cards/card_115.png"
+  },
+  {
+    "id": "c116",
+    "image": "assets/cards/card_116.png"
+  }
+]
