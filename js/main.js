@@ -11,7 +11,7 @@ import {
   setLocked, flipCard, removeObject, addObject,
   addCardToDeck, drawFromDeck, shuffleDeck,
   addRupeeToBank, drawFromBank,
-  setupCardMarket,
+  setupCardMarket, resetDeck,
 } from "./objects.js";
 import { initRenderer, setOnCreate, render, clearAll } from "./renderer.js";
 import { initDrag, setBoardTransform, attachDrag } from "./drag.js";
@@ -258,6 +258,7 @@ async function init() {
     onShuffle(id)   { action(() => shuffleDeck(id)); },
     onDraw(id)      { action(() => drawFromDeck(id)); },
     onSetupMarket(id, n) { action(() => setupCardMarket(id, n)); },
+    onResetDeck(id)      { action(() => resetDeck(id)); },
     onRemove(id)    { action(() => removeObject(id)); },
     onChangeAllegiance(id, allegiance) {
       action(() => {

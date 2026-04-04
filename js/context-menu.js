@@ -130,6 +130,8 @@ function buildItems(obj, id) {
     items.push({ label: "3 Players", action: () => cb.onSetupMarket?.(id, 3) });
     items.push({ label: "4 Players", action: () => cb.onSetupMarket?.(id, 4) });
     items.push({ label: "5 Players", action: () => cb.onSetupMarket?.(id, 5) });
+    items.push({ sep: true });
+    items.push({ label: "Reset Deck (116 cards)", action: () => cb.onResetDeck?.(id) });
   }
 
   if (type === "dial") {

@@ -185,6 +185,43 @@ export function shuffleDeck(deckId) {
   }
 }
 
+// ── Deck reset ────────────────────────────────────────────────────────────────
+
+/**
+ * Collects all 116 cards back into the deck, shuffles, removes the removed-cards
+ * pile and any loose cards from the table.
+ */
+export function resetDeck(deckId) {
+  const deck = state.objects[deckId];
+  if (!deck || deck.type !== "deck") return;
+
+  // Gather all card data from: current deck, removed deck, and loose cards on table
+  const allCardData = { ...(deck._cardData || {}) };
+
+  // Absorb removed-cards deck if present
+  const removedDeck = state.objects["deck-removed"];
+  if (removedDeck) {
+    Object.assign(allCardData, removedDeck._cardData || {});
+    delete state.objects["deck-removed"];
+  }
+
+  // Absorb any loose cards on the table that belong to the original 116
+  for (let i = 1; i <= 116; i++) {
+    const id = `c${String(i).padStart(3, "0")}`;
+    if (state.objects[id] && state.objects[id].type === "card") {
+      allCardData[id] = state.objects[id];
+      delete state.objects[id];
+    }
+  }
+
+  // Rebuild full 116-card list, shuffled
+  const allIds = Object.keys(allCardData).filter(id => cardNumber(id) !== null);
+  shuffleArr(allIds);
+
+  deck.cards = allIds;
+  deck._cardData = allCardData;
+}
+
 // ── Card categories ───────────────────────────────────────────────────────────
 
 function cardNumber(id) {
