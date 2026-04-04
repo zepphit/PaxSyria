@@ -223,3 +223,37 @@ export function loadFromFile() {
     input.click();
   });
 }
+
+// ── Rupee Bank operations ──────────────────────────────────────────────────────
+
+export function addRupeeToBank(bankId, rupeeId) {
+  const bank = state.objects[bankId];
+  const rupee = state.objects[rupeeId];
+  if (!bank || bank.type !== "rupee-bank" || !rupee || rupee.type !== "token") return false;
+  removeObject(rupeeId);
+  bank.rupees.push(rupeeId);
+  bank._rupeeData = bank._rupeeData || {};
+  bank._rupeeData[rupeeId] = rupee;
+  return true;
+}
+
+export function drawFromBank(bankId) {
+  const bank = state.objects[bankId];
+  if (!bank || bank.type !== "rupee-bank" || !bank.rupees.length) return null;
+  const rupeeId = bank.rupees.pop();
+  const rupeeData = (bank._rupeeData || {})[rupeeId] || {};
+  const rupee = {
+    ...rupeeData,
+    id: rupeeId,
+    type: "token",
+    x: bank.x + (bank.w || 0) + 20,
+    y: bank.y,
+    w: 12, h: 12,
+    rotation: 0,
+    locked: false,
+    image: "assets/misc/rupee.png",
+    subtype: "rupee",
+  };
+  addObject(rupee);
+  return rupee;
+}

@@ -127,6 +127,21 @@ function buildItems(obj, id) {
     items.push({ label: "Draw top card",             action: () => cb.onDraw?.(id)    });
   }
 
+  if (type === "dial") {
+    items.push({ sep: true });
+    items.push({ label: "Allegiance", header: true });
+    items.push(
+      { label: "Afghan",  action: () => cb.onChangeAllegiance?.(id, "afghan")  },
+      { label: "British", action: () => cb.onChangeAllegiance?.(id, "british") },
+      { label: "Russian", action: () => cb.onChangeAllegiance?.(id, "russian") }
+    );
+  }
+
+  if (type === "cylinder" || type === "rectangle") {
+    items.push({ sep: true });
+    items.push({ label: "Clone", action: () => cb.onClone?.(id) });
+  }
+
   if (type === "token") {
     items.push({ sep: true });
     items.push({ label: "Remove", action: () => cb.onRemove?.(id) });

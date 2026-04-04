@@ -8,9 +8,10 @@
 import {
   getState, getObject, pushUndo, undo, redo,
   moveObject, bringToFront, rotateCW, rotateCCW,
-  setLocked, flipCard, removeObject,
+  setLocked, flipCard, removeObject, addObject,
   addCardToDeck, drawFromDeck, shuffleDeck,
-  saveToFile, loadFromFile,
+  addRupeeToBank, drawFromBank,
+  saveToFile,
 } from "./objects.js";
 import { initRenderer, setOnCreate, render, clearAll } from "./renderer.js";
 import { initDrag, setBoardTransform, attachDrag } from "./drag.js";
@@ -81,9 +82,11 @@ document.addEventListener("keyup", (e) => {
 document.getElementById("btn-undo").addEventListener("click", doUndo);
 document.getElementById("btn-redo").addEventListener("click", doRedo);
 document.getElementById("btn-save").addEventListener("click", saveToFile);
-document.getElementById("btn-load").addEventListener("click", async () => {
-  const loaded = await loadFromFile();
-  if (loaded) fullRender();
+document.getElementById("btn-reset").addEventListener("click", () => {
+  if (confirm("Reset to initial state? This cannot be undone.")) {
+    localStorage.clear();
+    location.reload();
+  }
 });
 document.getElementById("btn-zoom-in").addEventListener("click",  () => { zoom = Math.min(ZOOM_MAX, zoom + ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-out").addEventListener("click", () => { zoom = Math.max(ZOOM_MIN, zoom - ZOOM_STEP); applyTransform(); });
@@ -137,6 +140,44 @@ async function init() {
       addCardToDeck(deckId, cardId);
       fullRender();
     },
+    onDropOnBank(rupeeId, bankId) {
+      addRupeeToBank(bankId, rupeeId);
+      fullRender();
+    },
+    onDrawCard(deckId, clientX, clientY) {
+      pushUndo();
+      const card = drawFromDeck(deckId);
+      if (card) {
+        fullRender();
+        setTimeout(() => {
+          const cardEl = document.querySelector(`[data-obj-id="${card.id}"]`);
+          if (cardEl) {
+            cardEl.dispatchEvent(new PointerEvent("pointerdown", {
+              button: 0, bubbles: true, cancelable: true,
+              clientX, clientY,
+              pointerId: 1,
+            }));
+          }
+        }, 0);
+      }
+    },
+    onDrawFromBank(bankId, clientX, clientY) {
+      pushUndo();
+      const rupee = drawFromBank(bankId);
+      if (rupee) {
+        fullRender();
+        setTimeout(() => {
+          const rupeeEl = document.querySelector(`[data-obj-id="${rupee.id}"]`);
+          if (rupeeEl) {
+            rupeeEl.dispatchEvent(new PointerEvent("pointerdown", {
+              button: 0, bubbles: true, cancelable: true,
+              clientX, clientY,
+              pointerId: 1,
+            }));
+          }
+        }, 0);
+      }
+    },
   });
 
   // Context menu
@@ -149,6 +190,27 @@ async function init() {
     onShuffle(id)   { action(() => shuffleDeck(id)); },
     onDraw(id)      { action(() => drawFromDeck(id)); },
     onRemove(id)    { action(() => removeObject(id)); },
+    onChangeAllegiance(id, allegiance) {
+      action(() => {
+        const dial = getObject(id);
+        if (dial && dial.type === "dial") {
+          dial.allegiance = allegiance;
+          dial.image = `assets/players/${dial.color}_${allegiance}.png`;
+        }
+      });
+    },
+    onClone(id) {
+      action(() => {
+        const original = getObject(id);
+        if (!original) return;
+        const cloneId = `${original.type}-clone-${Date.now()}`;
+        const cloned = JSON.parse(JSON.stringify(original));
+        cloned.id = cloneId;
+        cloned.x += 30;
+        cloned.y += 30;
+        addObject(cloned);
+      });
+    },
   });
 
   // Keyboard shortcuts (F to flip, Delete to remove)

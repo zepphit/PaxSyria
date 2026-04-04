@@ -75,10 +75,14 @@ function createElement(obj) {
   el.dataset.objType = obj.type;
 
   switch (obj.type) {
-    case "board":  buildBoard(el, obj);  break;
-    case "card":   buildCard(el, obj);   break;
-    case "deck":   buildDeck(el, obj);   break;
-    case "token":  buildToken(el, obj);  break;
+    case "board":       buildBoard(el, obj);       break;
+    case "card":        buildCard(el, obj);        break;
+    case "deck":        buildDeck(el, obj);        break;
+    case "rupee-bank":  buildRupeeBank(el, obj);   break;
+    case "dial":        buildDial(el, obj);        break;
+    case "cylinder":    buildCylinder(el, obj);    break;
+    case "rectangle":   buildRectangle(el, obj);   break;
+    case "token":       buildToken(el, obj);       break;
   }
 
   return el;
@@ -114,6 +118,43 @@ function buildDeck(el, obj) {
   el.appendChild(badge);
 }
 
+function buildRupeeBank(el, obj) {
+  const img = document.createElement("img");
+  img.src = obj.image || "";
+  img.alt = "Rupee Bank";
+  img.draggable = false;
+  el.appendChild(img);
+
+  const badge = document.createElement("div");
+  badge.className = "rupee-bank-badge";
+  badge.textContent = (obj.rupees || []).length;
+  el.appendChild(badge);
+}
+
+function buildDial(el, obj) {
+  const img = document.createElement("img");
+  img.src = obj.image || "";
+  img.alt = obj.label || "Dial";
+  img.draggable = false;
+  el.appendChild(img);
+}
+
+function buildCylinder(el, obj) {
+  const img = document.createElement("img");
+  img.src = obj.image || "";
+  img.alt = obj.label || "Cylinder";
+  img.draggable = false;
+  el.appendChild(img);
+}
+
+function buildRectangle(el, obj) {
+  const img = document.createElement("img");
+  img.src = obj.image || "";
+  img.alt = obj.label || "Rectangle";
+  img.draggable = false;
+  el.appendChild(img);
+}
+
 function buildToken(el, obj) {
   el.style.backgroundColor = obj.color || "#888";
   if (obj.label) el.textContent = obj.label;
@@ -130,6 +171,18 @@ function syncElement(el, obj) {
       break;
     case "deck":
       syncDeck(el, obj);
+      break;
+    case "rupee-bank":
+      syncRupeeBank(el, obj);
+      break;
+    case "dial":
+      syncDial(el, obj);
+      break;
+    case "cylinder":
+      syncCylinder(el, obj);
+      break;
+    case "rectangle":
+      syncRectangle(el, obj);
       break;
     case "token":
       syncToken(el, obj);
@@ -150,6 +203,26 @@ function syncDeck(el, obj) {
   const badge = el.querySelector(".deck-badge");
   if (badge) badge.textContent = (obj.cards || []).length;
   // Update image if it changed
+  const img = el.querySelector("img");
+  if (img && obj.image && img.src !== obj.image) img.src = obj.image;
+}
+
+function syncRupeeBank(el, obj) {
+  const badge = el.querySelector(".rupee-bank-badge");
+  if (badge) badge.textContent = (obj.rupees || []).length;
+}
+
+function syncDial(el, obj) {
+  const img = el.querySelector("img");
+  if (img && obj.image && img.src !== obj.image) img.src = obj.image;
+}
+
+function syncCylinder(el, obj) {
+  const img = el.querySelector("img");
+  if (img && obj.image && img.src !== obj.image) img.src = obj.image;
+}
+
+function syncRectangle(el, obj) {
   const img = el.querySelector("img");
   if (img && obj.image && img.src !== obj.image) img.src = obj.image;
 }
