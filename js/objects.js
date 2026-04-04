@@ -296,11 +296,17 @@ export function setupCardMarket(deckId, playerCount) {
   }
 
   // Draw 12 cards face-up onto the market board in a 2×6 grid
-  const MARKET_X = 935, MARKET_Y = 50, MARKET_W = 1200, MARKET_H = 640;
+  const MARKET_X = 935, MARKET_Y = 50, MARKET_W = 1200;
   const CARD_W = 138, CARD_H = 193;
-  const COLS = 6, ROWS = 2;
-  const colGap = (MARKET_W - COLS * CARD_W) / (COLS + 1);
-  const rowGap = (MARKET_H - ROWS * CARD_H) / (ROWS + 1);
+  const COLS = 6;
+  const CARD_GAP = 10;
+
+  // Center the block of 6 cards horizontally within the market
+  const blockW = COLS * CARD_W + (COLS - 1) * CARD_GAP;
+  const startX = MARKET_X + (MARKET_W - blockW) / 2;
+
+  // Row Y positions tuned to the market board layout
+  const rowY = [MARKET_Y + 210, MARKET_Y + 427];
 
   for (let i = 0; i < 12; i++) {
     const cardId = deck.cards.pop();
@@ -312,8 +318,8 @@ export function setupCardMarket(deckId, playerCount) {
       ...data,
       id: cardId,
       type: "card",
-      x: MARKET_X + colGap + col * (CARD_W + colGap),
-      y: MARKET_Y + rowGap + row * (CARD_H + rowGap),
+      x: startX + col * (CARD_W + CARD_GAP),
+      y: rowY[row],
       w: CARD_W,
       h: CARD_H,
       rotation: 0,
