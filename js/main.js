@@ -152,6 +152,7 @@ function restoreBackup() {
 
 document.getElementById("btn-reload-setup").addEventListener("click", () => {
   localStorage.removeItem("pax-template");
+  localStorage.removeItem("pax-template-backup");
   location.reload();
 });
 
