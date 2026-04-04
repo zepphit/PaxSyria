@@ -914,7 +914,23 @@ export async function setupInitialScene() {
       "rupee-16",
       "rupee-17",
       "rupee-18",
-      "rupee-19"
+      "rupee-19",
+      "rupee-20",
+      "rupee-21",
+      "rupee-22",
+      "rupee-23",
+      "rupee-24",
+      "rupee-25",
+      "rupee-26",
+      "rupee-27",
+      "rupee-28",
+      "rupee-29",
+      "rupee-30",
+      "rupee-31",
+      "rupee-32",
+      "rupee-33",
+      "rupee-34",
+      "rupee-35"
     ],
     "_rupeeData": {
       "rupee-0": {
@@ -1109,6 +1125,166 @@ export async function setupInitialScene() {
       },
       "rupee-19": {
         "id": "rupee-19",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-20": {
+        "id": "rupee-20",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-21": {
+        "id": "rupee-21",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-22": {
+        "id": "rupee-22",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-23": {
+        "id": "rupee-23",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-24": {
+        "id": "rupee-24",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-25": {
+        "id": "rupee-25",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-26": {
+        "id": "rupee-26",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-27": {
+        "id": "rupee-27",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-28": {
+        "id": "rupee-28",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-29": {
+        "id": "rupee-29",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-30": {
+        "id": "rupee-30",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-31": {
+        "id": "rupee-31",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-32": {
+        "id": "rupee-32",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-33": {
+        "id": "rupee-33",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-34": {
+        "id": "rupee-34",
+        "type": "token",
+        "w": 48,
+        "h": 48,
+        "rotation": 0,
+        "locked": false,
+        "image": "assets/misc/rupee.png",
+        "subtype": "rupee"
+      },
+      "rupee-35": {
+        "id": "rupee-35",
         "type": "token",
         "w": 48,
         "h": 48,
