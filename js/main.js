@@ -33,7 +33,23 @@ let isPanning = false;
 let panStart  = { x: 0, y: 0 };
 let spaceHeld = false;
 
+function clampPan() {
+  const BOARD_W = 3100;
+  const BOARD_H = 1950;
+  const viewportH = viewport.clientHeight;
+
+  // Calculate allowed pan bounds (board cannot go beyond viewport edges)
+  const minPanX = -(BOARD_W * zoom - viewport.clientWidth);
+  const maxPanX = 0;
+  const minPanY = -(BOARD_H * zoom - viewportH);
+  const maxPanY = 0;
+
+  pan.x = Math.max(minPanX, Math.min(maxPanX, pan.x));
+  pan.y = Math.max(minPanY, Math.min(maxPanY, pan.y));
+}
+
 function applyTransform() {
+  clampPan();
   board.style.transform = `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`;
   setBoardTransform(pan.x, pan.y, zoom);
   document.getElementById("zoom-level").textContent = Math.round(zoom * 100) + "%";
