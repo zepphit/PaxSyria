@@ -248,7 +248,7 @@ export function drawFromBank(bankId) {
     type: "token",
     x: bank.x + (bank.w || 0) + 20,
     y: bank.y,
-    w: 12, h: 12,
+    w: 48, h: 48,
     rotation: 0,
     locked: false,
     image: "assets/misc/rupee.png",

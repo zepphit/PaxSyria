@@ -150,7 +150,7 @@ export async function setupInitialScene() {
     rupeeDataMap[rid] = {
       id: rid,
       type: "token",
-      w: 12, h: 12,
+      w: 48, h: 48,
       rotation: 0,
       locked: false,
       image: "assets/misc/rupee.png",
@@ -160,7 +160,7 @@ export async function setupInitialScene() {
 
   addObject({
     id: "rupee-bank", type: "rupee-bank",
-    x: 2155, y: 290, w: 12, h: 12,
+    x: 2155, y: 290, w: 70, h: 70,
     rotation: 0, locked: false,
     image: "assets/misc/rupee.png",
     rupees: rupeeIds,

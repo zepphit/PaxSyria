@@ -156,8 +156,17 @@ function buildRectangle(el, obj) {
 }
 
 function buildToken(el, obj) {
-  el.style.backgroundColor = obj.color || "#888";
-  if (obj.label) el.textContent = obj.label;
+  // If token has an image (e.g., rupee), render as image; otherwise as colored circle
+  if (obj.image) {
+    const img = document.createElement("img");
+    img.src = obj.image;
+    img.alt = obj.label || "Token";
+    img.draggable = false;
+    el.appendChild(img);
+  } else {
+    el.style.backgroundColor = obj.color || "#888";
+    if (obj.label) el.textContent = obj.label;
+  }
 }
 
 // ── Element sync (update existing element) ────────────────────────────────────
@@ -228,8 +237,13 @@ function syncRectangle(el, obj) {
 }
 
 function syncToken(el, obj) {
-  el.style.backgroundColor = obj.color || "#888";
-  if (obj.label !== undefined) el.textContent = obj.label;
+  if (obj.image) {
+    const img = el.querySelector("img");
+    if (img && obj.image && img.src !== obj.image) img.src = obj.image;
+  } else {
+    el.style.backgroundColor = obj.color || "#888";
+    if (obj.label !== undefined) el.textContent = obj.label;
+  }
 }
 
 // ── Positioning ───────────────────────────────────────────────────────────────

@@ -176,6 +176,15 @@ html, body {
   border-radius: 4px;
 }
 
+.obj-rupee-bank img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  border-radius: 4px;
+}
+
 .deck-badge {
   position: absolute;
   top: -8px;
@@ -237,6 +246,15 @@ html, body {
   font-size: 14px;
   font-weight: bold;
   box-shadow: var(--piece-shadow);
+}
+
+/* Image tokens (e.g., rupees) */
+.obj-token img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 /* Dragging state */
