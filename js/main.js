@@ -25,7 +25,7 @@ const board    = document.getElementById("board");
 
 // ── Pan & Zoom ────────────────────────────────────────────────────────────────
 let pan  = { x: 40, y: 30 };
-let zoom = 1;
+let zoom = 0.4;
 const ZOOM_MIN  = 0.25;
 const ZOOM_MAX  = 3;
 const ZOOM_STEP = 0.1;
@@ -60,9 +60,18 @@ viewport.addEventListener("pointerup", () => {
 });
 viewport.addEventListener("wheel", (e) => {
   e.preventDefault();
-  pan.y -= e.deltaY;
-  pan.x -= e.deltaX;
-  applyTransform();
+
+  // Option + Scroll = Zoom
+  if (e.altKey) {
+    const zoomDelta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+    zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, zoom + zoomDelta));
+    applyTransform();
+  } else {
+    // Normal scroll = Pan
+    pan.y -= e.deltaY;
+    pan.x -= e.deltaX;
+    applyTransform();
+  }
 }, { passive: false });
 
 // ── Global keyboard shortcuts ─────────────────────────────────────────────────
@@ -238,6 +247,13 @@ async function init() {
 
   console.log("About to applyTransform...");
   console.log("Pan:", pan, "Zoom:", zoom);
+
+  // Center the board on page load
+  pan = {
+    x: Math.max(0, (viewport.clientWidth - 3100 * zoom) / 2),
+    y: Math.max(0, (viewport.clientHeight - 1950 * zoom) / 2),
+  };
+
   applyTransform();
   console.log("Board transform:", board.style.transform);
   console.log("About to fullRender...");
