@@ -105,18 +105,17 @@ document.addEventListener("keyup", (e) => {
 
 // ── Toolbar ───────────────────────────────────────────────────────────────────
 // ── Save / Load from localStorage ─────────────────────────────────────────────
-function saveToLocalStorage() {
+function saveTemplate() {
   const json = JSON.stringify(getState());
-  // Rotate: current → backup before overwriting
-  const current = localStorage.getItem("pax-checkpoint");
-  if (current) localStorage.setItem("pax-checkpoint-backup", current);
-  localStorage.setItem("pax-checkpoint", json);
-  alert("Game saved!");
+  // Rotate: current template → backup before overwriting
+  const current = localStorage.getItem("pax-template");
+  if (current) localStorage.setItem("pax-template-backup", current);
+  localStorage.setItem("pax-template", json);
+  alert("Template saved! Reset will now restore to this state.");
 }
 
-function loadCheckpoint() {
-  // Try primary, then backup
-  for (const key of ["pax-checkpoint", "pax-checkpoint-backup"]) {
+function loadTemplate() {
+  for (const key of ["pax-template", "pax-template-backup"]) {
     const raw = localStorage.getItem(key);
     if (!raw) continue;
     try {
@@ -128,53 +127,34 @@ function loadCheckpoint() {
   return null;
 }
 
-function resetToCheckpoint() {
-  if (confirm("Reset to last saved state? This cannot be undone.")) {
-    const state = loadCheckpoint();
-    if (state) {
-      setState(state);
-      fullRender();
-    } else {
-      // No checkpoint at all — rebuild initial scene without touching localStorage
-      location.reload();
-    }
-  }
+function resetToTemplate() {
+  const template = loadTemplate();
+  if (!template) { alert("No saved template yet. Arrange the board and click Save first."); return; }
+  if (!confirm("Reset to saved template? Unsaved changes will be lost.")) return;
+  setState(template);
+  fullRender();
 }
 
-function newGame() {
-  if (!confirm("Start a new game from scratch? Your current saves will be kept as emergency backup.")) return;
-  // Stash all existing saves into emergency slot
-  const checkpoint = localStorage.getItem("pax-checkpoint");
-  const backup = localStorage.getItem("pax-checkpoint-backup");
-  if (checkpoint) localStorage.setItem("pax-checkpoint-emergency", checkpoint);
-  if (backup) localStorage.setItem("pax-checkpoint-emergency-backup", backup);
-  // Clear normal save slots so setupInitialScene runs on reload
-  localStorage.removeItem("pax-checkpoint");
-  localStorage.removeItem("pax-checkpoint-backup");
-  location.reload();
-}
-
-function restoreEmergency() {
-  const emergency = localStorage.getItem("pax-checkpoint-emergency");
-  if (!emergency) { alert("No emergency save found."); return; }
-  if (!confirm("Restore from emergency save?")) return;
+function restoreBackup() {
+  const backup = localStorage.getItem("pax-template-backup");
+  if (!backup) { alert("No previous template found."); return; }
+  if (!confirm("Restore previous template? This will replace your current state.")) return;
   try {
-    const state = JSON.parse(emergency);
+    const state = JSON.parse(backup);
     setState(state);
     fullRender();
-    alert("Emergency save restored!");
+    alert("Previous template restored!");
   } catch (err) {
-    console.error("Failed to restore emergency save:", err);
-    alert("Failed to restore emergency save.");
+    console.error("Failed to restore backup:", err);
+    alert("Failed to restore backup.");
   }
 }
 
 document.getElementById("btn-undo").addEventListener("click", doUndo);
 document.getElementById("btn-redo").addEventListener("click", doRedo);
-document.getElementById("btn-save").addEventListener("click", saveToLocalStorage);
-document.getElementById("btn-reset").addEventListener("click", resetToCheckpoint);
-document.getElementById("btn-new-game").addEventListener("click", newGame);
-document.getElementById("btn-emergency").addEventListener("click", restoreEmergency);
+document.getElementById("btn-save").addEventListener("click", saveTemplate);
+document.getElementById("btn-reset").addEventListener("click", resetToTemplate);
+document.getElementById("btn-emergency").addEventListener("click", restoreBackup);
 document.getElementById("btn-zoom-in").addEventListener("click",  () => { zoom = Math.min(ZOOM_MAX, zoom + ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-out").addEventListener("click", () => { zoom = Math.max(ZOOM_MIN, zoom - ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-fit").addEventListener("click", () => {
@@ -313,13 +293,13 @@ async function init() {
     onRemove(id) { action(() => removeObject(id)); },
   });
 
-  // Load from checkpoint or build initial scene
-  const saved = loadCheckpoint();
-  if (saved) {
-    setState(saved);
-    console.log("Loaded checkpoint, objects:", Object.keys(getState().objects).length);
+  // Load saved template or build initial scene (first launch only)
+  const template = loadTemplate();
+  if (template) {
+    setState(template);
+    console.log("Loaded template, objects:", Object.keys(getState().objects).length);
   } else {
-    console.log("No checkpoint, building initial scene...");
+    console.log("No template, building initial scene...");
     try {
       await setupInitialScene();
       console.log("setupInitialScene completed, objects:", Object.keys(getState().objects).length);
