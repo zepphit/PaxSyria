@@ -1,466 +1,1080 @@
 [
   {
     "id": "c001",
-    "image": "assets/cards/card_001.png"
+    "image": "assets/cards/card_001.png",
+    "suit":"intelligence",
+    "level":3,
+    "location":"Kabul",
+    "impact icons":{"spy":3},
+    "actions":{"move":3},
+    "passive":{"Indispensable Advisors":"Your spies cannot be removed in battles with other spies."},
+    "prize":"Russian"
   },
   {
     "id": "c002",
-    "image": "assets/cards/card_002.png"
+    "image": "assets/cards/card_002.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Kabul",
+    "impact icons":{"spy":2,"army":1,"favored suit":"military"},
+    "actions":{"battle":2,"move":2},
+    "prize":"Russian"
   },
   {
     "id": "c003",
-    "image": "assets/cards/card_003.png"
+    "image": "assets/cards/card_003.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"spy":1},
+    "actions":{"gift":1,"move":1},
+    "prize":"Afghan"
   },
   {
     "id": "c004",
-    "image": "assets/cards/card_004.png"
+    "image": "assets/cards/card_004.png",
+    "suit":"political",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"tribe":1},
+    "actions":{"build":1},
+    "passive":{"Claim of Ancient Lineage":"When you take the tax action, act as if you rule every region."},
+    "prize":"Afghan"
   },
   {
     "id": "c005",
-    "image": "assets/cards/card_005.png"
+    "image": "assets/cards/card_005.png",
+    "suit":"political",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"tribe":1,"army":1,"spy":1},
+    "patriot":"Afghan",
+    "actions":{"build":1,"battle":1}
   },
   {
     "id": "c006",
-    "image": "assets/cards/card_006.png"
+    "image": "assets/cards/card_006.png",
+    "suit":"political",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"tribe":1,"army":1,"spy":1},
+    "patriot":"Afghan",
+    "actions":{"build":1,"battle":1}
   },
   {
     "id": "c007",
-    "image": "assets/cards/card_007.png"
+    "image": "assets/cards/card_007.png",
+    "suit":"political",
+    "level":2,
+    "location":"Kabul",
+    "impact icons":{"tribe":2,"army":1,"spy":1}
   },
   {
     "id": "c008",
-    "image": "assets/cards/card_008.png"
+    "image": "assets/cards/card_008.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Kabul",
+    "impact icons":{"road":2,"spy":1,"favored suit":"political"},
+    "actions":{"tax":2}
   },
   {
     "id": "c009",
-    "image": "assets/cards/card_009.png"
+    "image": "assets/cards/card_009.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"road":1},
+    "actions":{"tax":1,"move":1}
   },
   {
     "id": "c010",
-    "image": "assets/cards/card_010.png"
+    "image": "assets/cards/card_010.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"road":1,"favored suit":"military"},
+    "actions":{"build":1,"betray":1},
+    "prize":"Afghan"
   },
   {
     "id": "c011",
-    "image": "assets/cards/card_011.png"
+    "image": "assets/cards/card_011.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Kabul",
+    "impact icons":{"road":2},
+    "patriot":"Afghan",
+    "actions":{"tax":2,"gift":1}
   },
   {
     "id": "c012",
-    "image": "assets/cards/card_012.png"
+    "image": "assets/cards/card_012.png",
+    "suit":"economic",
+    "level":3,
+    "location":"Kabul",
+    "impact icons":{"road":3,"army":1},
+    "actions":{"gift":1}
   },
   {
     "id": "c013",
-    "image": "assets/cards/card_013.png"
+    "image": "assets/cards/card_013.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Kabul",
+    "impact icons":{"road":2},
+    "actions":{"tax":2,"move":1},
+    "prize":"Russian"
   },
   {
     "id": "c014",
-    "image": "assets/cards/card_014.png"
+    "image": "assets/cards/card_014.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Kabul",
+    "impact icons":{"road":1,"leverage":1},
+    "actions":{"gift":1,"build":1}
   },
   {
     "id": "c015",
-    "image": "assets/cards/card_015.png"
+    "image": "assets/cards/card_015.png",
+    "suit":"military",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"army":1},
+    "actions":{"betray":1},
+    "passive":{"Bodyguards":"Your political cards cannot be targets of the betray action."}
   },
   {
     "id": "c016",
-    "image": "assets/cards/card_016.png"
+    "image": "assets/cards/card_016.png",
+    "suit":"military",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"army":1},
+    "actions":{"tax":1,"betray":1}
   },
   {
     "id": "c017",
-    "image": "assets/cards/card_017.png"
+    "image": "assets/cards/card_017.png",
+    "suit":"military",
+    "level":1,
+    "location":"Kabul",
+    "impact icons":{"army":1},
+    "actions":{"build":1},
+    "passive":{"Citadel":"Your tribes in Kabul cannot be attacked."}
   },
   {
     "id": "c018",
-    "image": "assets/cards/card_018.png"
+    "image": "assets/cards/card_018.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"spy":1},
+    "actions":{"gift":1,"betray":1}
   },
   {
     "id": "c019",
-    "image": "assets/cards/card_019.png"
+    "image": "assets/cards/card_019.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Punjab",
+    "impact icons":{"spy":2,"favored suit":"economic"},
+    "patriot":"British",
+    "actions":{"move":2,"betray":1},
+    "prize":"Russian"
   },
   {
     "id": "c020",
-    "image": "assets/cards/card_020.png"
+    "image": "assets/cards/card_020.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"spy":1,"favored suit":"economic"},
+    "patriot":"British",
+    "actions":{"gift":1,"move":1},
+    "prize":"Russian"
   },
   {
     "id": "c021",
-    "image": "assets/cards/card_021.png"
+    "image": "assets/cards/card_021.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Punjab",
+    "impact icons":{"spy":2},
+    "passive":{"Strange Bedfellows":"For spy travel, you treat cards that share a region as adjacent."},
+    "actions":{"move":2},
+    "prize":"Afghan"
   },
   {
     "id": "c022",
-    "image": "assets/cards/card_022.png"
+    "image": "assets/cards/card_022.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"spy":1,"favored suit":"political"},
+    "patriot":"British",
+    "actions":{"move":1,"gift":1},
+    "prize":"Russian"
   },
   {
     "id": "c023",
-    "image": "assets/cards/card_023.png"
+    "image": "assets/cards/card_023.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"spy":1,"favored suit":"economic"},
+    "patriot":"British",
+    "actions":{"battle":1,"move":1},
+    "prize":"Russian"
   },
   {
     "id": "c024",
-    "image": "assets/cards/card_024.png"
+    "image": "assets/cards/card_024.png",
+    "suit":"political",
+    "level":2,
+    "location":"Punjab",
+    "impact icons":{"tribe":2,"army":1},
+    "actions":{"betray":1},
+    "passive":{"Civil Service Reforms":"You do not pay bribes when taking hostage actions."}
   },
   {
     "id": "c025",
-    "image": "assets/cards/card_025.png"
+    "image": "assets/cards/card_025.png",
+    "suit":"political",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"tribe":1},
+    "patriot":"Afghan",
+    "actions":{"tax":1},
+    "prize":"British"
   },
   {
     "id": "c026",
-    "image": "assets/cards/card_026.png"
+    "image": "assets/cards/card_026.png",
+    "suit":"political",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"tribe":1,"army":1},
+    "actions":{"betray":1},
+    "prize":"Afghan"
   },
   {
     "id": "c027",
-    "image": "assets/cards/card_027.png"
+    "image": "assets/cards/card_027.png",
+    "suit":"political",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"tribe":1,"leverage":1},
+    "actions":{"build":1}
   },
   {
     "id": "c028",
-    "image": "assets/cards/card_028.png"
+    "image": "assets/cards/card_028.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"road":1,"spy":1},
+    "actions":{"tax":1,"build":1},
+    "prize":"Afghan"
   },
   {
     "id": "c029",
-    "image": "assets/cards/card_029.png"
+    "image": "assets/cards/card_029.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Punjab",
+    "impact icons":{"road":2},
+    "actions":{"tax":2,"move":2}
   },
   {
     "id": "c030",
-    "image": "assets/cards/card_030.png"
+    "image": "assets/cards/card_030.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"road":1,"spy":1,"leverage":1},
+    "actions":{"tax":1,"gift":1}
   },
   {
     "id": "c031",
-    "image": "assets/cards/card_031.png"
+    "image": "assets/cards/card_031.png",
+    "suit":"military",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"army":1,"favored suit":"intelligence"},
+    "actions":{"tax":1,"betray":1}
   },
   {
     "id": "c032",
-    "image": "assets/cards/card_032.png"
+    "image": "assets/cards/card_032.png",
+    "suit":"military",
+    "level":3,
+    "location":"Punjab",
+    "impact icons":{"army":3},
+    "patriot":"British",
+    "actions":{"move":3},
+    "prize":"Afghan"
   },
   {
     "id": "c033",
-    "image": "assets/cards/card_033.png"
+    "image": "assets/cards/card_033.png",
+    "suit":"military",
+    "level":2,
+    "location":"Punjab",
+    "impact icons":{"army":2},
+    "actions":{"battle":2,"gift":1}
   },
   {
     "id": "c034",
-    "image": "assets/cards/card_034.png"
+    "image": "assets/cards/card_034.png",
+    "suit":"military",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"army":1,"favored suit":"economic"},
+    "actions":{"battle":1,"move":1,"betray":1},
+    "prize":"British"
   },
   {
     "id": "c035",
-    "image": "assets/cards/card_035.png"
+    "image": "assets/cards/card_035.png",
+    "suit":"military",
+    "level":2,
+    "location":"Punjab",
+    "impact icons":{"army":2,"favored suit":"political"},
+    "actions":{"battle":2,"move":2}
   },
   {
     "id": "c036",
-    "image": "assets/cards/card_036.png"
+    "image": "assets/cards/card_036.png",
+    "suit":"military",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"army":1,"favored suit":"intelligence"},
+    "patriot":"British",
+    "actions":{"battle":1,"betray":1},
+    "prize":"Afghan"
   },
   {
     "id": "c037",
-    "image": "assets/cards/card_037.png"
+    "image": "assets/cards/card_037.png",
+    "suit":"military",
+    "level":1,
+    "location":"Punjab",
+    "impact icons":{"army":1,"favored suit":"political"},
+    "patriot":"British",
+    "actions":{"battle":1,"move":1},
+    "prize":"Afghan"
   },
   {
     "id": "c038",
-    "image": "assets/cards/card_038.png"
+    "image": "assets/cards/card_038.png",
+    "suit":"military",
+    "level":2,
+    "location":"Punjab",
+    "impact icons":{"army":2},
+    "actions":{"battle":2},
+    "prize":"British"
   },
   {
     "id": "c039",
-    "image": "assets/cards/card_039.png"
+    "image": "assets/cards/card_039.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"spy":1},
+    "actions":{"move":1,"battle":1}
   },
   {
     "id": "c040",
-    "image": "assets/cards/card_040.png"
+    "image": "assets/cards/card_040.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Kandahar",
+    "impact icons":{"spy":2,"leverage":1},
+    "actions":{"tax":2,"move":2},
+    "prize":"Afghan"
   },
   {
     "id": "c041",
-    "image": "assets/cards/card_041.png"
+    "image": "assets/cards/card_041.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Kandahar",
+    "impact icons":{"spy":2},
+    "actions":{"build":1},
+    "passive":{"Safe House":"When another player removes your spy in battle, you may place it on this card instead."}
   },
   {
     "id": "c042",
-    "image": "assets/cards/card_042.png"
+    "image": "assets/cards/card_042.png",
+    "suit":"political",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"tribe":1,"leverage":1,"favored suit":"economic"},
+    "actions":{"build":1},
+    "passive":{"Charismatic Courtiers":"You do not pay bribes when playing cards."},
+    "prize":"Afghan"
   },
   {
     "id": "c043",
-    "image": "assets/cards/card_043.png"
+    "image": "assets/cards/card_043.png",
+    "suit":"political",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"tribe":1,"army":1},
+    "actions":{"build":1},
+    "passive":{"Blackmail":"At start of turn, you may place a spy on any Kandahar court card without a spy."},
+    "prize":"Afghan"
   },
   {
     "id": "c044",
-    "image": "assets/cards/card_044.png"
+    "image": "assets/cards/card_044.png",
+    "suit":"political",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"tribe":1,"army":1},
+    "actions":{"build":1,"tax":1},
+    "prize":"Russian"
   },
   {
     "id": "c045",
-    "image": "assets/cards/card_045.png"
+    "image": "assets/cards/card_045.png",
+    "suit":"political",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"tribe":1,"army":1},
+    "actions":{"betray":1,"gift":1}
   },
   {
     "id": "c046",
-    "image": "assets/cards/card_046.png"
+    "image": "assets/cards/card_046.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Kandahar",
+    "impact icons":{"road":2,"leverage":1,"favored suit":"intelligence"},
+    "actions":{"gift":1}
   },
   {
     "id": "c047",
-    "image": "assets/cards/card_047.png"
+    "image": "assets/cards/card_047.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Kandahar",
+    "impact icons":{"road":2,"army":1},
+    "actions":{"gift":1,"move":2},
+    "prize":"Russian"
   },
   {
     "id": "c048",
-    "image": "assets/cards/card_048.png"
+    "image": "assets/cards/card_048.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"road":1,"favored suit":"political"},
+    "actions":{"move":1,"build":1}
   },
   {
     "id": "c049",
-    "image": "assets/cards/card_049.png"
+    "image": "assets/cards/card_049.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"road":1,"favored suit":"political"},
+    "actions":{"tax":1,"build":1}
   },
   {
     "id": "c050",
-    "image": "assets/cards/card_050.png"
+    "image": "assets/cards/card_050.png",
+    "suit":"military",
+    "level":2,
+    "location":"Kandahar",
+    "impact icons":{"army":2},
+    "patriot":"British",
+    "actions":{"battle":2,"move":2},
+    "prize":"Russian"
   },
   {
     "id": "c051",
-    "image": "assets/cards/card_051.png"
+    "image": "assets/cards/card_051.png",
+    "suit":"military",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"army":1},
+    "patriot":"British",
+    "actions":{"battle":1},
+    "passive":{"Indian Supplies":"Your armies may move without a road."},
+    "prize":"Russian"
   },
   {
     "id": "c052",
-    "image": "assets/cards/card_052.png"
+    "image": "assets/cards/card_052.png",
+    "suit":"military",
+    "level":1,
+    "location":"Kandahar",
+    "impact icons":{"army":1,"favored suit":"political"},
+    "actions":{"battle":1,"tax":1}
   },
   {
     "id": "c053",
-    "image": "assets/cards/card_053.png"
+    "image": "assets/cards/card_053.png",
+    "suit":"military",
+    "level":2,
+    "location":"Kandahar",
+    "impact icons":{"army":2,"spy":1},
+    "actions":{"betray":1},
+    "prize":"Russian"
   },
   {
     "id": "c054",
-    "image": "assets/cards/card_054.png"
+    "image": "assets/cards/card_054.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Herat",
+    "impact icons":{"spy":1,"leverage":1},
+    "actions":{"tax":1},
+    "passive":{"Blackmail":"At start of turn, you may place a spy on any Herat court card without a spy."}
   },
   {
     "id": "c055",
-    "image": "assets/cards/card_055.png"
+    "image": "assets/cards/card_055.png",
+    "suit":"political",
+    "level":1,
+    "location":"Herat",
+    "impact icons":{"tribe":1,"army":1},
+    "actions":{"battle":1,"tax":1,"move":1}
   },
   {
     "id": "c056",
-    "image": "assets/cards/card_056.png"
+    "image": "assets/cards/card_056.png",
+    "suit":"political",
+    "level":2,
+    "location":"Herat",
+    "impact icons":{"tribe":2,"favored suit":"political"},
+    "actions":{"betray":1},
+    "passive":{"Well-Connected":"Your spies may double their distance moved when using a move action."},
+    "prize":"Afghan"
   },
   {
     "id": "c057",
-    "image": "assets/cards/card_057.png"
+    "image": "assets/cards/card_057.png",
+    "suit":"political",
+    "level":1,
+    "location":"Herat",
+    "impact icons":{"tribe":1},
+    "actions":{"betray":1,"move":1},
+    "prize":"British"
   },
   {
     "id": "c058",
-    "image": "assets/cards/card_058.png"
+    "image": "assets/cards/card_058.png",
+    "suit":"political",
+    "level":1,
+    "location":"Herat",
+    "impact icons":{"tribe":1,"favored suit":"economic"},
+    "patriot":"Afghan",
+    "actions":{"gift":1,"build":1}
   },
   {
     "id": "c059",
-    "image": "assets/cards/card_059.png"
+    "image": "assets/cards/card_059.png",
+    "suit":"military",
+    "level":2,
+    "location":"Herat",
+    "impact icons":{"army":2},
+    "actions":{"betray":1,"battle":2}
   },
   {
     "id": "c060",
-    "image": "assets/cards/card_060.png"
+    "image": "assets/cards/card_060.png",
+    "suit":"military",
+    "level":1,
+    "location":"Herat",
+    "impact icons":{"army":1},
+    "actions":{"tax":1,"gift":1,"battle":1},
+    "prize":"Russian"
   },
   {
     "id": "c061",
-    "image": "assets/cards/card_061.png"
+    "image": "assets/cards/card_061.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Herat",
+    "impact icons":{"road":2},
+    "actions":{"tax":2}
   },
   {
     "id": "c062",
-    "image": "assets/cards/card_062.png"
+    "image": "assets/cards/card_062.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Herat",
+    "impact icons":{"road":1,"favored suit":"political"},
+    "actions":{"gift":1,"build":1}
   },
   {
     "id": "c063",
-    "image": "assets/cards/card_063.png"
+    "image": "assets/cards/card_063.png",
+    "suit":"economic",
+    "level":3,
+    "location":"Herat",
+    "impact icons":{"road":3},
+    "actions":{"move":3}
   },
   {
     "id": "c064",
-    "image": "assets/cards/card_064.png"
+    "image": "assets/cards/card_064.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Herat",
+    "impact icons":{"road":2,"spy":1,"favored suit":"military"},
+    "actions":{"tax":2}
   },
   {
     "id": "c065",
-    "image": "assets/cards/card_065.png"
+    "image": "assets/cards/card_065.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Herat",
+    "impact icons":{"road":1,"army":1},
+    "actions":{"battle":1,"tax":1,"move":1}
   },
   {
     "id": "c066",
-    "image": "assets/cards/card_066.png"
+    "image": "assets/cards/card_066.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Herat",
+    "impact icons":{"road":2,"army":1},
+    "actions":{"battle":2},
+    "passive":{"Herat Influence":"You do not pay for Herat cards in the market."
   },
   {
     "id": "c067",
-    "image": "assets/cards/card_067.png"
+    "image": "assets/cards/card_067.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Herat",
+    "impact icons":{"road":1},
+    "actions":{"move":2,"gift":1}
   },
   {
     "id": "c068",
-    "image": "assets/cards/card_068.png"
+    "image": "assets/cards/card_068.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"spy":2,"army":1},
+    "actions":{"tax":2},
+    "passive":{"Persia Influence":"You do not pay for Persia cards in the market."}
   },
   {
     "id": "c069",
-    "image": "assets/cards/card_069.png"
+    "image": "assets/cards/card_069.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"spy":2},
+    "patriot":"Russian",
+    "actions":{"battle":2,"move":2},
+    "prize":"British"
   },
   {
     "id": "c070",
-    "image": "assets/cards/card_070.png"
+    "image": "assets/cards/card_070.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"spy":2},
+    "patriot":"Russian",
+    "actions":{"move":2},
+    "passive":{"Russian Influence":"You do not pay for Russian Patriots in the market."},
+    "prize":"Afghan"
   },
   {
     "id": "c071",
-    "image": "assets/cards/card_071.png"
+    "image": "assets/cards/card_071.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"spy":1},
+    "patriot":"British",
+    "actions":{"move":1,"gift":1},
+    "prize":"Afghan"
   },
   {
     "id": "c072",
-    "image": "assets/cards/card_072.png"
+    "image": "assets/cards/card_072.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"spy":2},
+    "actions":{"move":2},
+    "passive":{"Safe House":"When another player removes your spy in battle, you may place it in this card instead."},
+    "prize":"Russian"
   },
   {
     "id": "c073",
-    "image": "assets/cards/card_073.png"
+    "image": "assets/cards/card_073.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"spy":1,"favored suit":"military"},
+    "actions":{"build":1,"battle":1},
+    "prize":"British"
   },
   {
     "id": "c074",
-    "image": "assets/cards/card_074.png"
+    "image": "assets/cards/card_074.png",
+    "suit":"political",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"tribe":1,"favored suit":"intelligence"},
+    "patriot":"Afghan",
+    "actions":{"betray":1,"battle":1},
+    "prize":"Russian"
   },
   {
     "id": "c075",
-    "image": "assets/cards/card_075.png"
+    "image": "assets/cards/card_075.png",
+    "suit":"political",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"tribe":1,"army":1},
+    "actions":{"tax":1,"battle":1}
   },
   {
     "id": "c076",
-    "image": "assets/cards/card_076.png"
+    "image": "assets/cards/card_076.png",
+    "suit":"political",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"tribe":2,"favored suit":"intelligence"}
   },
   {
     "id": "c077",
-    "image": "assets/cards/card_077.png"
+    "image": "assets/cards/card_077.png",
+    "suit":"political",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"tribe":1,"army":1,"favored suit":"intelligence"},
+    "actions":{"build":1,"betray":1}
   },
   {
     "id": "c078",
-    "image": "assets/cards/card_078.png"
+    "image": "assets/cards/card_078.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"road":2,"leverage":1,"favored suit":"intelligence"},
+    "actions":{"build":1},
+    "passive":{"Infrastructure":"After you take the build action, place one additional block in a legal space."}
   },
   {
     "id": "c079",
-    "image": "assets/cards/card_079.png"
+    "image": "assets/cards/card_079.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"road":1,"spy":1,"leverage":1},
+    "actions":{"tax":1,"move":1},
+    "prize":"British"
   },
   {
     "id": "c080",
-    "image": "assets/cards/card_080.png"
+    "image": "assets/cards/card_080.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"road":1,"leverage":1},
+    "patriot":"British",
+    "actions":{"tax":1,"build":1},
+    "prize":"Russian"
   },
   {
     "id": "c081",
-    "image": "assets/cards/card_081.png"
+    "image": "assets/cards/card_081.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"road":2,"leverage":1},
+    "patriot":"Russian",
+    "actions":{"tax":2,"build":1},
+    "prize":"British"
   },
   {
     "id": "c082",
-    "image": "assets/cards/card_082.png"
+    "image": "assets/cards/card_082.png",
+    "suit":"military",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"army":2,"favored suit":"intelligence"},
+    "actions":{"gift":2,"battle":2}
   },
   {
     "id": "c083",
-    "image": "assets/cards/card_083.png"
+    "image": "assets/cards/card_083.png",
+    "suit":"military",
+    "level":1,
+    "location":"Persia",
+    "impact icons":{"army":1,"spy":1},
+    "actions":{"tax":1},
+    "passive":{"Bodyguards":"Your political cards in play cannot be targets of the betray action."}
   },
   {
     "id": "c084",
-    "image": "assets/cards/card_084.png"
+    "image": "assets/cards/card_084.png",
+    "suit":"military",
+    "level":2,
+    "location":"Persia",
+    "impact icons":{"army":2,"favored suit":"economic"},
+    "patriot":"Russian",
+    "actions":{"battle":2},
+    "prize":"Afghan"
   },
   {
     "id": "c085",
-    "image": "assets/cards/card_085.png"
+    "image": "assets/cards/card_085.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"spy":1,"leverage":1,"favored suit":"economic"},
+    "actions":{"gift":1,"build":1},
+    "prize":"British"
   },
   {
     "id": "c086",
-    "image": "assets/cards/card_086.png"
+    "image": "assets/cards/card_086.png",
+    "suit":"intelligence",
+    "level":2,
+    "location":"Transcaspia",
+    "impact icons":{"spy":2},
+    "patriot":"Russian",
+    "actions":{"move":2,"build":1}
   },
   {
     "id": "c087",
-    "image": "assets/cards/card_087.png"
+    "image": "assets/cards/card_087.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Transcaspia",
+    "patriot":"Russian",
+    "impact icons":{"spy":1},
+    "actions":{"move":1,"gift":1,"build":1}
   },
   {
     "id": "c088",
-    "image": "assets/cards/card_088.png"
+    "image": "assets/cards/card_088.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Transcaspia",
+    "patriot":"British",
+    "impact icons":{"spy":1},
+    "actions":{"move":1,"gift":1}
   },
   {
     "id": "c089",
-    "image": "assets/cards/card_089.png"
+    "image": "assets/cards/card_089.png",
+    "suit":"intelligence",
+    "level":1,
+    "location":"Transcaspia",
+    "patriot":"Russian",
+    "impact icons":{"spy":1},
+    "actions":{"move":1,"betray":1,"battle":1}
   },
   {
     "id": "c090",
-    "image": "assets/cards/card_090.png"
+    "image": "assets/cards/card_090.png",
+    "suit":"political",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"tribe":1},
+    "actions":{"tax":1,"betray":1},
+    "prize":"British"
   },
   {
     "id": "c091",
-    "image": "assets/cards/card_091.png"
+    "image": "assets/cards/card_091.png",
+    "suit":"political",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"tribe":1,"army":1,"spy":1},
+    "actions":{"betray":1},
+    "passive":{"Savvy Operator": "This card is always treated as if it were in the favored suit."},
+    "prize":"Russian"
   },
   {
     "id": "c092",
-    "image": "assets/cards/card_092.png"
+    "image": "assets/cards/card_092.png",
+    "suit":"political",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"tribe":1,"spy":1,"favored suit":"military"},
+    "actions":{"battle":1,"tax":1,"move":1},
+    "prize":"British"
   },
   {
     "id": "c093",
-    "image": "assets/cards/card_093.png"
+    "image": "assets/cards/card_093.png",
+    "suit":"political",
+    "level":2,
+    "location":"Transcaspia",
+    "impact icons":{"tribe":2},
+    "actions":{"battle":2,"betray":1},
+    "prize":"British"
   },
   {
     "id": "c094",
-    "image": "assets/cards/card_094.png"
+    "image": "assets/cards/card_094.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"road":1,"spy":1,"leverage":1},
+    "actions":{"tax":1,"betray":1},
+    "prize":"British"
   },
   {
     "id": "c095",
-    "image": "assets/cards/card_095.png"
+    "image": "assets/cards/card_095.png",
+    "suit":"economic",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"road":1},
+    "patriot":"Russian",
+    "actions":{"tax":1,"move":1},
+    "prize":"Afghan"
   },
   {
     "id": "c096",
-    "image": "assets/cards/card_096.png"
+    "image": "assets/cards/card_096.png",
+    "suit":"economic",
+    "level":2,
+    "location":"Transcaspia",
+    "impact icons":{"road":2},
+    "actions":{"tax":2,"move":2},
+    "prize":"British"
   },
   {
     "id": "c097",
-    "image": "assets/cards/card_097.png"
+    "image": "assets/cards/card_097.png",
+    "suit":"military",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"army":1,"favored suit":"intelligence"},
+    "actions":{"build":1},
+    "passive":{"Citadel": "Your tribes in Transcaspia cannot be attacked."},  
   },
   {
     "id": "c098",
-    "image": "assets/cards/card_098.png"
+    "image": "assets/cards/card_098.png",
+    "suit":"military",
+    "level":3,
+    "location":"Transcaspia",
+    "impact icons":{"army":3},
+    "actions":{"gift":1},
+    "prize":"British"
   },
   {
     "id": "c099",
-    "image": "assets/cards/card_099.png"
+    "image": "assets/cards/card_099.png",
+    "suit":"military",
+    "level":1,
+    "location":"Transcaspia",
+    "impact icons":{"army":1,"spy":1},
+    "patriot":"Russian",
+    "actions":{"battle":1},
+    "passive":{"Irregulars": "This card is always treated as if it were in the favored suit."},
+    "prize":"British"
   },
   {
     "id": "c100",
-    "image": "assets/cards/card_100.png"
+    "image": "assets/cards/card_100.png",
+    "suit":"military",
+    "level":2,
+    "location":"Transcaspia",
+    "impact icons":{"army":2},
+    "patriot":"Russian",
+    "actions":{"battle":2},
+    "prize":"British"
   },
   {
     "id": "c101",
-    "image": "assets/cards/card_101.png"
+    "image": "assets/cards/card_101.png",
+    "dominance check":true
   },
   {
     "id": "c102",
-    "image": "assets/cards/card_102.png"
+    "image": "assets/cards/card_102.png",
+    "dominance check":true
   },
   {
     "id": "c103",
-    "image": "assets/cards/card_103.png"
+    "image": "assets/cards/card_103.png",
+    "dominance check":true
   },
   {
     "id": "c104",
-    "image": "assets/cards/card_104.png"
+    "image": "assets/cards/card_104.png",
+    "dominance check":true
   },
   {
     "id": "c105",
-    "image": "assets/cards/card_105.png"
+    "image": "assets/cards/card_105.png",
+    "event":true
   },
   {
     "id": "c106",
-    "image": "assets/cards/card_106.png"
+    "image": "assets/cards/card_106.png",
+    "event":true
   },
   {
     "id": "c107",
-    "image": "assets/cards/card_107.png"
+    "image": "assets/cards/card_107.png",
+    "event":true
   },
   {
     "id": "c108",
-    "image": "assets/cards/card_108.png"
+    "image": "assets/cards/card_108.png",
+    "event":true
   },
   {
     "id": "c109",
-    "image": "assets/cards/card_109.png"
+    "image": "assets/cards/card_109.png",
+    "event":true
   },
   {
     "id": "c110",
-    "image": "assets/cards/card_110.png"
+    "image": "assets/cards/card_110.png",
+    "event":true
   },
   {
     "id": "c111",
-    "image": "assets/cards/card_111.png"
+    "image": "assets/cards/card_111.png",
+    "event":true
   },
   {
     "id": "c112",
-    "image": "assets/cards/card_112.png"
+    "image": "assets/cards/card_112.png",
+    "event":true
   },
   {
     "id": "c113",
-    "image": "assets/cards/card_113.png"
+    "image": "assets/cards/card_113.png",
+    "event":true
   },
   {
     "id": "c114",
-    "image": "assets/cards/card_114.png"
+    "image": "assets/cards/card_114.png",
+    "event":true
   },
   {
     "id": "c115",
-    "image": "assets/cards/card_115.png"
+    "image": "assets/cards/card_115.png",
+    "event":true
   },
   {
     "id": "c116",
-    "image": "assets/cards/card_116.png"
+    "image": "assets/cards/card_116.png",
+    "event":true
   }
 ]
