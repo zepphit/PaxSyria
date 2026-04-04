@@ -188,7 +188,8 @@ export function shuffleDeck(deckId) {
 // ── Card categories ───────────────────────────────────────────────────────────
 
 function cardNumber(id) {
-  const m = id.match(/card[_-]?(\d+)/i);
+  // Matches: c001, c101, card_001, card-001, etc.
+  const m = id.match(/^c(?:ard[_-]?)?(\d+)$/i);
   return m ? parseInt(m[1], 10) : null;
 }
 
@@ -215,13 +216,13 @@ function shuffleArr(arr) {
 /**
  * Sets up the card market for n players (3, 4 or 5).
  * Rebuilds the deck into stacks A–F, then draws 12 cards face-up onto the market.
+ * Unused cards are placed in a face-down removed pile to the left of the market.
  * Market board: x=935, y=50, w=1200, h=640. Cards: 138×193.
  */
 export function setupCardMarket(deckId, playerCount) {
   const deck = state.objects[deckId];
   if (!deck || deck.type !== "deck") return;
 
-  // Collect all card ids (in deck + any already on table from this deck)
   const allCardIds = [...deck.cards];
   const cardData = { ...(deck._cardData || {}) };
 
@@ -232,15 +233,13 @@ export function setupCardMarket(deckId, playerCount) {
 
   const n = playerCount;
 
-  // Build stacks: each is [cardIds], will be shuffled
-  // Stack composition per plan (A=top, F=bottom)
   const stackDefs = [
-    { normalCount: 5 + n, eventCount: 0, domCount: 0 }, // A
+    { normalCount: 5 + n, eventCount: 0, domCount: 0 }, // A (top)
     { normalCount: 5 + n, eventCount: 2, domCount: 0 }, // B
     { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // C
     { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // D
     { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // E
-    { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // F
+    { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // F (bottom)
   ];
 
   const stacks = stackDefs.map(({ normalCount, eventCount, domCount }) => {
@@ -252,29 +251,56 @@ export function setupCardMarket(deckId, playerCount) {
     return shuffleArr(ids);
   });
 
+  // Remaining cards after splicing are unused
+  const unusedIds = [...normal, ...event, ...dominance];
+
   // Assemble final deck: F at bottom (index 0), A on top (last)
-  // deck.cards: bottom = index 0, top = last
   const finalCards = [
-    ...stacks[5], // F (bottom)
-    ...stacks[4], // E
-    ...stacks[3], // D
-    ...stacks[2], // C
-    ...stacks[1], // B
-    ...stacks[0], // A (top)
+    ...stacks[5], ...stacks[4], ...stacks[3],
+    ...stacks[2], ...stacks[1], ...stacks[0],
   ];
 
   deck.cards = finalCards;
   deck._cardData = cardData;
 
-  // Draw 12 cards face-up onto the market board
-  // Market: x=935, y=50, w=1200, h=640, 2 rows × 6 cols, card 138×193
+  let maxZ = Object.values(state.objects).reduce((m, o) => Math.max(m, o.zIndex ?? 0), 0);
+
+  // Place unused cards as a face-down pile, rotated 90°, to the left of the market
+  if (unusedIds.length) {
+    const REMOVED_DECK_ID = "deck-removed";
+    // Remove old removed deck if present
+    delete state.objects[REMOVED_DECK_ID];
+
+    const removedCardData = {};
+    for (const id of unusedIds) {
+      removedCardData[id] = cardData[id] || {};
+    }
+
+    state.objects[REMOVED_DECK_ID] = {
+      id: REMOVED_DECK_ID,
+      type: "deck",
+      x: 935 - 138 - 30, // left of market
+      y: 50,
+      w: 138,
+      h: 193,
+      rotation: 90,
+      locked: false,
+      image: "assets/cards/card_back.png",
+      cards: unusedIds,
+      cardW: 138,
+      cardH: 193,
+      _cardData: removedCardData,
+      label: "Removed Cards",
+      zIndex: ++maxZ,
+    };
+  }
+
+  // Draw 12 cards face-up onto the market board in a 2×6 grid
   const MARKET_X = 935, MARKET_Y = 50, MARKET_W = 1200, MARKET_H = 640;
   const CARD_W = 138, CARD_H = 193;
   const COLS = 6, ROWS = 2;
   const colGap = (MARKET_W - COLS * CARD_W) / (COLS + 1);
   const rowGap = (MARKET_H - ROWS * CARD_H) / (ROWS + 1);
-
-  const maxZ = Object.values(state.objects).reduce((m, o) => Math.max(m, o.zIndex ?? 0), 0);
 
   for (let i = 0; i < 12; i++) {
     const cardId = deck.cards.pop();
@@ -282,7 +308,7 @@ export function setupCardMarket(deckId, playerCount) {
     const data = cardData[cardId] || {};
     const col = i % COLS;
     const row = Math.floor(i / COLS);
-    const card = {
+    state.objects[cardId] = {
       ...data,
       id: cardId,
       type: "card",
@@ -293,9 +319,8 @@ export function setupCardMarket(deckId, playerCount) {
       rotation: 0,
       locked: false,
       faceUp: true,
-      zIndex: maxZ + i + 1,
+      zIndex: ++maxZ,
     };
-    state.objects[cardId] = card;
   }
 }
 
