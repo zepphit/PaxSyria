@@ -6,7 +6,7 @@
  */
 
 import {
-  getState, setState, getObject, pushUndo, undo, redo,
+  getState, getObject, pushUndo, undo, redo,
   moveObject, bringToFront, rotateCW, rotateCCW,
   setLocked, flipCard, removeObject, addObject,
   addCardToDeck, drawFromDeck, shuffleDeck,
@@ -104,63 +104,36 @@ document.addEventListener("keyup", (e) => {
 });
 
 // ── Toolbar ───────────────────────────────────────────────────────────────────
-// ── Save / Load from localStorage ─────────────────────────────────────────────
-function saveTemplate() {
-  const json = JSON.stringify(getState());
-  // Rotate: current template → backup before overwriting
-  const current = localStorage.getItem("pax-template");
-  if (current) localStorage.setItem("pax-template-backup", current);
-  localStorage.setItem("pax-template", json);
-  alert("Template saved! Reset will now restore to this state.");
-}
 
-function loadTemplate() {
-  for (const key of ["pax-template", "pax-template-backup"]) {
-    const raw = localStorage.getItem(key);
-    if (!raw) continue;
-    try {
-      return JSON.parse(raw);
-    } catch (err) {
-      console.error(`Failed to parse ${key}:`, err);
+async function saveTemplate() {
+  try {
+    const res = await fetch("/save-setup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(getState()),
+    });
+    if (res.ok) {
+      alert("Saved! setup.js has been updated.");
+    } else {
+      const { error } = await res.json();
+      alert("Save failed: " + error);
     }
+  } catch (err) {
+    alert("Save failed: " + err.message);
   }
-  return null;
 }
 
 function resetToTemplate() {
-  const template = loadTemplate();
-  if (!template) { alert("No saved template yet. Arrange the board and click Save first."); return; }
   if (!confirm("Reset to saved template? Unsaved changes will be lost.")) return;
-  setState(template);
-  fullRender();
-}
-
-function restoreBackup() {
-  const backup = localStorage.getItem("pax-template-backup");
-  if (!backup) { alert("No previous template found."); return; }
-  if (!confirm("Restore previous template? This will replace your current state.")) return;
-  try {
-    const state = JSON.parse(backup);
-    setState(state);
-    fullRender();
-    alert("Previous template restored!");
-  } catch (err) {
-    console.error("Failed to restore backup:", err);
-    alert("Failed to restore backup.");
-  }
-}
-
-document.getElementById("btn-reload-setup").addEventListener("click", () => {
-  localStorage.removeItem("pax-template");
-  localStorage.removeItem("pax-template-backup");
   location.reload();
-});
+}
 
+document.getElementById("btn-reload-setup").addEventListener("click", () => { location.reload(); });
 document.getElementById("btn-undo").addEventListener("click", doUndo);
 document.getElementById("btn-redo").addEventListener("click", doRedo);
 document.getElementById("btn-save").addEventListener("click", saveTemplate);
 document.getElementById("btn-reset").addEventListener("click", resetToTemplate);
-document.getElementById("btn-emergency").addEventListener("click", restoreBackup);
+
 document.getElementById("btn-zoom-in").addEventListener("click",  () => { zoom = Math.min(ZOOM_MAX, zoom + ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-out").addEventListener("click", () => { zoom = Math.max(ZOOM_MIN, zoom - ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-fit").addEventListener("click", () => {
@@ -299,20 +272,13 @@ async function init() {
     onRemove(id) { action(() => removeObject(id)); },
   });
 
-  // Load saved template or build initial scene (first launch only)
-  const template = loadTemplate();
-  if (template) {
-    setState(template);
-    console.log("Loaded template, objects:", Object.keys(getState().objects).length);
-  } else {
-    console.log("No template, building initial scene...");
-    try {
-      await setupInitialScene();
-      console.log("setupInitialScene completed, objects:", Object.keys(getState().objects).length);
-    } catch (err) {
-      console.error("setupInitialScene failed:", err);
-      throw err;
-    }
+  // Always build from setup.js — Save overwrites it directly
+  try {
+    await setupInitialScene();
+    console.log("setupInitialScene completed, objects:", Object.keys(getState().objects).length);
+  } catch (err) {
+    console.error("setupInitialScene failed:", err);
+    throw err;
   }
 
   console.log("About to applyTransform...");
