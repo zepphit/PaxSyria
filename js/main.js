@@ -134,6 +134,12 @@ async function init() {
     onDrop(id, x, y) {
       pushUndo();
       moveObject(id, x, y);
+      // Flip cards that were just drawn
+      const obj = getObject(id);
+      if (obj && obj.type === "card" && obj._justDrawn) {
+        obj.faceUp = true;
+        delete obj._justDrawn;
+      }
       render(getState());
     },
     onDropOnDeck(cardId, deckId) {
@@ -148,6 +154,7 @@ async function init() {
       pushUndo();
       const card = drawFromDeck(deckId);
       if (card) {
+        card._justDrawn = true;  // Mark as drawn so it flips on drop
         fullRender();
         setTimeout(() => {
           const cardEl = document.querySelector(`[data-obj-id="${card.id}"]`);
@@ -220,10 +227,22 @@ async function init() {
   });
 
   // Build the initial scene
-  await setupInitialScene();
+  console.log("About to run setupInitialScene...");
+  try {
+    await setupInitialScene();
+    console.log("setupInitialScene completed, objects in state:", Object.keys(getState().objects).length);
+  } catch (err) {
+    console.error("setupInitialScene failed:", err);
+    throw err;
+  }
 
+  console.log("About to applyTransform...");
+  console.log("Pan:", pan, "Zoom:", zoom);
   applyTransform();
+  console.log("Board transform:", board.style.transform);
+  console.log("About to fullRender...");
   fullRender();
+  console.log("Init complete!, board has", board.children.length, "children");
 }
 
 init();

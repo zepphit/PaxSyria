@@ -21,15 +21,21 @@ let offsetX   = 0;
 let offsetY   = 0;
 
 // Callbacks (set by initDrag)
-let onPickup      = null;  // (id) => void
-let onDrop        = null;  // (id, x, y) => void
-let onDropOnDeck  = null;  // (cardId, deckId) => void
+let onPickup        = null;  // (id) => void
+let onDrop          = null;  // (id, x, y) => void
+let onDropOnDeck    = null;  // (cardId, deckId) => void
+let onDropOnBank    = null;  // (rupeeId, bankId) => void
+let onDrawCard      = null;  // (deckId, clientX, clientY) => void
+let onDrawFromBank  = null;  // (bankId, clientX, clientY) => void
 
 export function initDrag(board, callbacks = {}) {
-  boardEl       = board;
-  onPickup      = callbacks.onPickup     ?? null;
-  onDrop        = callbacks.onDrop       ?? null;
-  onDropOnDeck  = callbacks.onDropOnDeck ?? null;
+  boardEl         = board;
+  onPickup        = callbacks.onPickup        ?? null;
+  onDrop          = callbacks.onDrop          ?? null;
+  onDropOnDeck    = callbacks.onDropOnDeck    ?? null;
+  onDropOnBank    = callbacks.onDropOnBank    ?? null;
+  onDrawCard      = callbacks.onDrawCard      ?? null;
+  onDrawFromBank  = callbacks.onDrawFromBank  ?? null;
 
   document.addEventListener("pointermove", onPointerMove);
   document.addEventListener("pointerup",   onPointerUp);
@@ -64,14 +70,31 @@ function onPointerDown(e) {
   if (e.button !== 0) return;
 
   const el = e.currentTarget;
-  // Respect locked objects
+  const objType = el.dataset.objType;
+
+  // Draw from deck or rupee bank - even if locked - don't drag the container, trigger draw instead
+  if (objType === "deck" && onDrawCard) {
+    if (onDrawCard) onDrawCard(el.dataset.objId, e.clientX, e.clientY);
+    e.preventDefault();
+    e.stopPropagation();
+    return;
+  }
+
+  if (objType === "rupee-bank" && onDrawFromBank) {
+    if (onDrawFromBank) onDrawFromBank(el.dataset.objId, e.clientX, e.clientY);
+    e.preventDefault();
+    e.stopPropagation();
+    return;
+  }
+
+  // Respect locked objects for other types
   if (el.dataset.locked === "true") return;
   // Ignore right-click targets (context menu handles those)
   if (e.target.closest(".context-menu")) return;
 
   dragEl   = el;
   dragId   = el.dataset.objId;
-  dragType = el.dataset.objType;
+  dragType = objType;
 
   const { bx, by } = viewportToBoard(e.clientX, e.clientY);
   offsetX = bx - (parseFloat(el.style.left) || 0);
@@ -106,11 +129,35 @@ function onPointerUp(e) {
   const x = parseFloat(dragEl.style.left) || 0;
   const y = parseFloat(dragEl.style.top)  || 0;
 
+  // Drawing from deck
+  if (dragType === "deck" && onDrawCard) {
+    onDrawCard(dragId, e.clientX, e.clientY);
+    dragEl = null; dragId = null; dragType = null;
+    return;
+  }
+
+  // Drawing from rupee bank
+  if (dragType === "rupee-bank" && onDrawFromBank) {
+    onDrawFromBank(dragId, e.clientX, e.clientY);
+    dragEl = null; dragId = null; dragType = null;
+    return;
+  }
+
   // Check if a card was dropped onto a deck
   if (dragType === "card") {
     const deckId = hitTestDecks(dragEl);
     if (deckId && onDropOnDeck) {
       onDropOnDeck(dragId, deckId);
+      dragEl = null; dragId = null; dragType = null;
+      return;
+    }
+  }
+
+  // Check if a rupee was dropped onto a rupee bank
+  if (dragType === "token") {
+    const bankId = hitTestBanks(dragEl);
+    if (bankId && onDropOnBank) {
+      onDropOnBank(dragId, bankId);
       dragEl = null; dragId = null; dragType = null;
       return;
     }
@@ -138,6 +185,22 @@ function hitTestDecks(draggedEl) {
     const r = deckEl.getBoundingClientRect();
     if (cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom) {
       return deckEl.dataset.objId;
+    }
+  }
+  return null;
+}
+
+function hitTestBanks(draggedEl) {
+  const dEl  = draggedEl;
+  const dRect = dEl.getBoundingClientRect();
+  const cx   = dRect.left + dRect.width  / 2;
+  const cy   = dRect.top  + dRect.height / 2;
+
+  for (const bankEl of boardEl.querySelectorAll(".obj-rupee-bank")) {
+    if (bankEl === dEl) continue;
+    const r = bankEl.getBoundingClientRect();
+    if (cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom) {
+      return bankEl.dataset.objId;
     }
   }
   return null;
