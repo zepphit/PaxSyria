@@ -94,7 +94,7 @@ export async function setupInitialScene() {
     const pos = cylinderPositions[pNum - 1];
     addObject({
       id: `cylinder-${p.id}`, type: "cylinder",
-      x: pos.x, y: pos.y, w: 60, h: 60,
+      x: pos.x, y: pos.y, w: 54, h: 54,
       rotation: 0, locked: false,
       image: `assets/players/${p.color}_cylinder.png`,
       color: p.color,
