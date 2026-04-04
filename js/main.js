@@ -127,8 +127,8 @@ async function saveTemplate() {
     if (res.ok) {
       alert("Saved! setup.js has been updated.");
     } else {
-      const { error } = await res.json();
-      alert("Save failed: " + error);
+      const text = await res.text();
+      alert("Save failed: " + text);
     }
   } catch (err) {
     alert("Save failed: " + err.message);

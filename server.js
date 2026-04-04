@@ -50,8 +50,8 @@ export async function setupInitialScene() {
         res.end(JSON.stringify({ ok: true }));
       } catch (err) {
         console.error("Failed to write setup.js:", err);
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ ok: false, error: err.message }));
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end(err.message);
       }
     });
     return;
