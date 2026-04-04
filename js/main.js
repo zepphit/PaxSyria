@@ -141,10 +141,40 @@ function resetToCheckpoint() {
   }
 }
 
+function newGame() {
+  if (!confirm("Start a new game from scratch? Your current saves will be kept as emergency backup.")) return;
+  // Stash all existing saves into emergency slot
+  const checkpoint = localStorage.getItem("pax-checkpoint");
+  const backup = localStorage.getItem("pax-checkpoint-backup");
+  if (checkpoint) localStorage.setItem("pax-checkpoint-emergency", checkpoint);
+  if (backup) localStorage.setItem("pax-checkpoint-emergency-backup", backup);
+  // Clear normal save slots so setupInitialScene runs on reload
+  localStorage.removeItem("pax-checkpoint");
+  localStorage.removeItem("pax-checkpoint-backup");
+  location.reload();
+}
+
+function restoreEmergency() {
+  const emergency = localStorage.getItem("pax-checkpoint-emergency");
+  if (!emergency) { alert("No emergency save found."); return; }
+  if (!confirm("Restore from emergency save?")) return;
+  try {
+    const state = JSON.parse(emergency);
+    setState(state);
+    fullRender();
+    alert("Emergency save restored!");
+  } catch (err) {
+    console.error("Failed to restore emergency save:", err);
+    alert("Failed to restore emergency save.");
+  }
+}
+
 document.getElementById("btn-undo").addEventListener("click", doUndo);
 document.getElementById("btn-redo").addEventListener("click", doRedo);
 document.getElementById("btn-save").addEventListener("click", saveToLocalStorage);
 document.getElementById("btn-reset").addEventListener("click", resetToCheckpoint);
+document.getElementById("btn-new-game").addEventListener("click", newGame);
+document.getElementById("btn-emergency").addEventListener("click", restoreEmergency);
 document.getElementById("btn-zoom-in").addEventListener("click",  () => { zoom = Math.min(ZOOM_MAX, zoom + ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-out").addEventListener("click", () => { zoom = Math.max(ZOOM_MIN, zoom - ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-fit").addEventListener("click", () => {
