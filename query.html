@@ -22,6 +22,12 @@
   th { color: #e6c47f; font-weight: 600; font-size: 0.85em; text-transform: uppercase; }
   td.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr:hover { background: #1a2a4e; }
+  tr.has-tooltip { cursor: help; position: relative; }
+  .tooltip { position: fixed; z-index: 2000; background: #1e2d4a; border: 1px solid #4a6fa5; border-radius: 6px; padding: 10px 14px; max-width: 420px; font-size: 0.85em; line-height: 1.6; color: #e0e0e0; pointer-events: none; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+  .tooltip .tip-card { margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid #2a3a5a; }
+  .tooltip .tip-card:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .tooltip .tip-id { color: #e6c47f; font-weight: 600; margin-right: 6px; }
+  .tooltip .tip-text { color: #ccc; }
   tr.clickable { cursor: pointer; }
   tr.clickable:hover { background: #1e3a5e; }
 
@@ -335,18 +341,29 @@ function coOccurrencePanel(cards) {
     const total = actions.reduce((sum, a) => sum + (a === b ? 0 : matrix[a][b]), 0);
     return `<td class="num" style="font-weight:bold;color:#e6c47f">${total}</td>`;
   }).join('');
-  const sumRow = `<tr><th style="color:#e6c47f">Sum</th>${sumCells}</tr>`;
+  const sumRow = `<tr><th style="color:#e6c47f;cursor:help" data-tooltip="Sums every pairing separately. A card with [move, battle, betray] contributes 2 to move&apos;s Sum (once for move+battle, once for move+betray). It&apos;s the total number of cross-action relationships involving that action.">Sum ⓘ</th>${sumCells}</tr>`;
 
   const solosCells = actions.map(b => {
-    const colSum = actions.reduce((sum, a) => sum + (a === b ? 0 : matrix[a][b]), 0);
-    const solo = matrix[b][b] - colSum;
+    const solo = cards.filter(c => {
+      const acts = Object.keys(c.actions || {});
+      return acts.length === 1 && acts[0] === b;
+    }).length;
     return `<td class="num" style="font-weight:bold;color:#8bce8b">${solo}</td>`;
   }).join('');
-  const solosRow = `<tr><th style="color:#8bce8b">Total - Sum</th>${solosCells}</tr>`;
+  const solosRow = `<tr><th style="color:#8bce8b">Alone</th>${solosCells}</tr>`;
+
+  const pairedCells = actions.map(b => {
+    const alone = cards.filter(c => {
+      const acts = Object.keys(c.actions || {});
+      return acts.length === 1 && acts[0] === b;
+    }).length;
+    return `<td class="num" style="font-weight:bold;color:#7ab8e6">${matrix[b][b] - alone}</td>`;
+  }).join('');
+  const pairedRow = `<tr><th style="color:#7ab8e6">Paired</th>${pairedCells}</tr>`;
 
   return panel('Action Co-occurrence', `
     <p style="font-size:0.8em;color:#888;margin-bottom:8px">How often pairs of actions appear on the same card. Diagonal = total. Hover for details.</p>
-    <div class="matrix"><table>${header}${rows}${sumRow}${solosRow}</table></div>
+    <div class="matrix"><table>${header}${rows}${sumRow}${solosRow}${pairedRow}</table></div>
   `, null, 'span-2');
 }
 
@@ -467,13 +484,16 @@ function passivePanel(cards) {
     grouped[p.name].push(p);
   });
 
-  const rows = Object.entries(grouped).sort((a,b) => b[1].length - a[1].length).map(([name, entries]) =>
-    `<tr>
+  const rows = Object.entries(grouped).sort((a,b) => b[1].length - a[1].length).map(([name, entries]) => {
+    const tooltipHtml = entries.map(e =>
+      `<div class="tip-card"><span class="tip-id">${e.card.id}</span><span class="tip-text">${e.desc.replace(/"/g, '&quot;')}</span></div>`
+    ).join('');
+    return `<tr class="has-tooltip" data-tooltip="${tooltipHtml.replace(/"/g, '&quot;')}">
       <td>${name}</td>
       <td class="num">${entries.length}</td>
       <td style="font-size:0.8em;color:#888">${entries.map(e => e.card.id).join(', ')}</td>
-    </tr>`
-  ).join('');
+    </tr>`;
+  }).join('');
 
   return panel('Passive Abilities', `
     <p style="font-size:0.8em;color:#888;margin-bottom:8px">${passives.length} total passive abilities across ${Object.keys(grouped).length} distinct names</p>
@@ -605,6 +625,40 @@ function closePopup() {
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
+// Custom tooltip
+const tipEl = document.createElement('div');
+tipEl.className = 'tooltip';
+tipEl.style.display = 'none';
+document.body.appendChild(tipEl);
+
+document.addEventListener('mouseover', e => {
+  const el = e.target.closest('[data-tooltip]');
+  if (!el) { tipEl.style.display = 'none'; return; }
+  tipEl.innerHTML = el.dataset.tooltip;
+  tipEl.style.display = 'block';
+  positionTooltip(e);
+});
+
+document.addEventListener('mousemove', e => {
+  if (tipEl.style.display === 'block') positionTooltip(e);
+});
+
+document.addEventListener('mouseout', e => {
+  const el = e.target.closest('[data-tooltip]');
+  if (el && !el.contains(e.relatedTarget)) tipEl.style.display = 'none';
+});
+
+function positionTooltip(e) {
+  const pad = 12;
+  let x = e.clientX + pad;
+  let y = e.clientY + pad;
+  const rect = tipEl.getBoundingClientRect();
+  if (x + rect.width > window.innerWidth) x = e.clientX - rect.width - pad;
+  if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - pad;
+  tipEl.style.left = x + 'px';
+  tipEl.style.top = y + 'px';
+}
 
 init();
 </script>
