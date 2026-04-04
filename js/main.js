@@ -33,18 +33,20 @@ let panStart  = { x: 0, y: 0 };
 let spaceHeld = false;
 
 function clampPan() {
-  const BOARD_W = 3200;
-  const BOARD_H = 2200;
-  const viewportH = viewport.clientHeight;
+  const BOARD_W = 3100;
+  const BOARD_H = 1950;
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const scaledW = BOARD_W * zoom;
+  const scaledH = BOARD_H * zoom;
 
-  // Calculate allowed pan bounds (board cannot go beyond viewport edges)
-  const minPanX = -(BOARD_W * zoom - viewport.clientWidth)/2;
-  const maxPanX = (BOARD_W * zoom - viewport.clientWidth)/2;
-  const minPanY = -(BOARD_H * zoom - viewportH)/2;
-  const maxPanY = (BOARD_H * zoom - viewportH)/2;
-
-  pan.x = Math.max(minPanX, Math.min(maxPanX, pan.x));
-  pan.y = Math.max(minPanY, Math.min(maxPanY, pan.y));
+  // When board is smaller than viewport, center it; otherwise clamp to edges
+  pan.x = scaledW <= vw
+    ? (vw - scaledW) / 2
+    : Math.max(vw - scaledW, Math.min(0, pan.x));
+  pan.y = scaledH <= vh
+    ? (vh - scaledH) / 2
+    : Math.max(vh - scaledH, Math.min(0, pan.y));
 }
 
 function applyTransform() {
