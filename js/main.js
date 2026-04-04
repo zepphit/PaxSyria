@@ -150,6 +150,11 @@ function restoreBackup() {
   }
 }
 
+document.getElementById("btn-reload-setup").addEventListener("click", () => {
+  localStorage.removeItem("pax-template");
+  location.reload();
+});
+
 document.getElementById("btn-undo").addEventListener("click", doUndo);
 document.getElementById("btn-redo").addEventListener("click", doRedo);
 document.getElementById("btn-save").addEventListener("click", saveTemplate);
