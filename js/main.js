@@ -11,7 +11,6 @@ import {
   setLocked, flipCard, removeObject, addObject,
   addCardToDeck, drawFromDeck, shuffleDeck,
   addRupeeToBank, drawFromBank,
-  saveToFile,
 } from "./objects.js";
 import { initRenderer, setOnCreate, render, clearAll } from "./renderer.js";
 import { initDrag, setBoardTransform, attachDrag } from "./drag.js";
@@ -95,7 +94,7 @@ document.addEventListener("keydown", (e) => {
   if (e.code === "Space") { spaceHeld = true; viewport.style.cursor = "grab"; e.preventDefault(); }
   if ((e.ctrlKey || e.metaKey) && e.key === "z" && !e.shiftKey) { e.preventDefault(); doUndo(); }
   if ((e.ctrlKey || e.metaKey) && (e.key === "y" || (e.key === "z" && e.shiftKey))) { e.preventDefault(); doRedo(); }
-  if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); saveToFile(); }
+  if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); saveTemplate(); }
   if (e.key === "=" || e.key === "+") { zoom = Math.min(ZOOM_MAX, zoom + ZOOM_STEP); applyTransform(); }
   if (e.key === "-")                  { zoom = Math.max(ZOOM_MIN, zoom - ZOOM_STEP); applyTransform(); }
 });
@@ -105,12 +104,25 @@ document.addEventListener("keyup", (e) => {
 
 // ── Toolbar ───────────────────────────────────────────────────────────────────
 
+function cleanStateForSave(state) {
+  const cleaned = JSON.parse(JSON.stringify(state));
+  // Normalize zIndex and strip internal flags
+  const objects = Object.values(cleaned.objects);
+  objects.sort((a, b) => (a.zIndex ?? 0) - (b.zIndex ?? 0));
+  objects.forEach((obj, i) => {
+    obj.zIndex = i + 1;
+    delete obj._justDrawn;
+  });
+  return cleaned;
+}
+
 async function saveTemplate() {
+  if (!confirm("Overwrite setup.js with current board state?")) return;
   try {
     const res = await fetch("/save-setup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(getState()),
+      body: JSON.stringify(cleanStateForSave(getState())),
     });
     if (res.ok) {
       alert("Saved! setup.js has been updated.");

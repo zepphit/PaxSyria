@@ -1,6 +1,7 @@
 import { createServer } from "http";
-import { readFile, writeFile } from "fs/promises";
+import { readFile, writeFile, rename } from "fs/promises";
 import { extname, join } from "path";
+import { randomBytes } from "crypto";
 import { fileURLToPath } from "url";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -40,7 +41,11 @@ export async function setupInitialScene() {
   for (const obj of objects) addObject(obj);
 }
 `;
-        await writeFile(join(__dirname, "js/setup.js"), setupJs, "utf8");
+        // Atomic write: write to temp file then rename
+        const tmpPath = join(__dirname, `js/.setup.tmp.${randomBytes(4).toString("hex")}.js`);
+        const destPath = join(__dirname, "js/setup.js");
+        await writeFile(tmpPath, setupJs, "utf8");
+        await rename(tmpPath, destPath);
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ ok: true }));
       } catch (err) {
