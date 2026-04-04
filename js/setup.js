@@ -185,7 +185,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 45
+    "zIndex": 41
   },
   {
     "id": "cylinder-p2",
@@ -199,7 +199,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 57
+    "zIndex": 53
   },
   {
     "id": "cylinder-p3",
@@ -213,7 +213,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 55
+    "zIndex": 51
   },
   {
     "id": "cylinder-p4",
@@ -227,7 +227,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 56
+    "zIndex": 52
   },
   {
     "id": "cylinder-p5",
@@ -241,13 +241,13 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 58
+    "zIndex": 54
   },
   {
     "id": "rectangle-afghan",
     "type": "rectangle",
-    "x": 2185.1,
-    "y": 825.375,
+    "x": 2149.44,
+    "y": 827.484,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -255,13 +255,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/afghan_rectangle.png",
     "faction": "afghan",
     "label": "Afghan Rectangle",
-    "zIndex": 17
+    "zIndex": 94
   },
   {
     "id": "rectangle-british",
     "type": "rectangle",
-    "x": 2183.49,
-    "y": 981.093,
+    "x": 2144.23,
+    "y": 1029.48,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -269,13 +269,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 15
+    "zIndex": 92
   },
   {
     "id": "rectangle-russian",
     "type": "rectangle",
-    "x": 2184.44,
-    "y": 905.195,
+    "x": 2147.74,
+    "y": 927.398,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -283,7 +283,7 @@ export async function setupInitialScene() {
     "image": "assets/misc/russian_rectangle.png",
     "faction": "russian",
     "label": "Russian Rectangle",
-    "zIndex": 16
+    "zIndex": 93
   },
   {
     "id": "deck-draw",
@@ -1124,8 +1124,50 @@ export async function setupInitialScene() {
   {
     "id": "rectangle-clone-1775326969721",
     "type": "rectangle",
-    "x": 2240.01,
-    "y": 825.297,
+    "x": 2200,
+    "y": 825,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/afghan_rectangle.png",
+    "faction": "afghan",
+    "label": "Afghan Rectangle",
+    "zIndex": 15
+  },
+  {
+    "id": "rectangle-clone-1775328151095",
+    "type": "rectangle",
+    "x": 2250,
+    "y": 825,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/afghan_rectangle.png",
+    "faction": "afghan",
+    "label": "Afghan Rectangle",
+    "zIndex": 16
+  },
+  {
+    "id": "rectangle-clone-1775328152952",
+    "type": "rectangle",
+    "x": 2300,
+    "y": 825,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/afghan_rectangle.png",
+    "faction": "afghan",
+    "label": "Afghan Rectangle",
+    "zIndex": 17
+  },
+  {
+    "id": "rectangle-clone-1775328154719",
+    "type": "rectangle",
+    "x": 2350,
+    "y": 825,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1136,52 +1178,52 @@ export async function setupInitialScene() {
     "zIndex": 18
   },
   {
-    "id": "rectangle-clone-1775328151095",
-    "type": "rectangle",
-    "x": 2299.51,
-    "y": 823.484,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/afghan_rectangle.png",
-    "faction": "afghan",
-    "label": "Afghan Rectangle",
-    "zIndex": 19
-  },
-  {
-    "id": "rectangle-clone-1775328152952",
-    "type": "rectangle",
-    "x": 2356.72,
-    "y": 822.14,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/afghan_rectangle.png",
-    "faction": "afghan",
-    "label": "Afghan Rectangle",
-    "zIndex": 20
-  },
-  {
-    "id": "rectangle-clone-1775328154719",
-    "type": "rectangle",
-    "x": 2413.45,
-    "y": 820.796,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/afghan_rectangle.png",
-    "faction": "afghan",
-    "label": "Afghan Rectangle",
-    "zIndex": 21
-  },
-  {
     "id": "rectangle-clone-1775328156503",
     "type": "rectangle",
-    "x": 2468.89,
-    "y": 818.492,
+    "x": 2400,
+    "y": 825,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/afghan_rectangle.png",
+    "faction": "afghan",
+    "label": "Afghan Rectangle",
+    "zIndex": 28
+  },
+  {
+    "id": "rectangle-clone-1775328159124",
+    "type": "rectangle",
+    "x": 2450,
+    "y": 825,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/afghan_rectangle.png",
+    "faction": "afghan",
+    "label": "Afghan Rectangle",
+    "zIndex": 29
+  },
+  {
+    "id": "rectangle-clone-1775328161411",
+    "type": "rectangle",
+    "x": 2500,
+    "y": 825,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/afghan_rectangle.png",
+    "faction": "afghan",
+    "label": "Afghan Rectangle",
+    "zIndex": 30
+  },
+  {
+    "id": "rectangle-clone-1775328163303",
+    "type": "rectangle",
+    "x": 2550,
+    "y": 825,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1192,52 +1234,10 @@ export async function setupInitialScene() {
     "zIndex": 32
   },
   {
-    "id": "rectangle-clone-1775328159124",
-    "type": "rectangle",
-    "x": 2527.54,
-    "y": 817.859,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/afghan_rectangle.png",
-    "faction": "afghan",
-    "label": "Afghan Rectangle",
-    "zIndex": 33
-  },
-  {
-    "id": "rectangle-clone-1775328161411",
-    "type": "rectangle",
-    "x": 2589.35,
-    "y": 814.226,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/afghan_rectangle.png",
-    "faction": "afghan",
-    "label": "Afghan Rectangle",
-    "zIndex": 34
-  },
-  {
-    "id": "rectangle-clone-1775328163303",
-    "type": "rectangle",
-    "x": 2650.69,
-    "y": 811.93,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/afghan_rectangle.png",
-    "faction": "afghan",
-    "label": "Afghan Rectangle",
-    "zIndex": 36
-  },
-  {
     "id": "rectangle-clone-1775328165693",
     "type": "rectangle",
-    "x": 2711.73,
-    "y": 813.375,
+    "x": 2600,
+    "y": 825,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1245,13 +1245,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/afghan_rectangle.png",
     "faction": "afghan",
     "label": "Afghan Rectangle",
-    "zIndex": 35
+    "zIndex": 31
   },
   {
     "id": "rectangle-clone-1775328169003",
     "type": "rectangle",
-    "x": 2237.95,
-    "y": 904.312,
+    "x": 2200,
+    "y": 925,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1259,13 +1259,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/russian_rectangle.png",
     "faction": "russian",
     "label": "Russian Rectangle",
-    "zIndex": 27
+    "zIndex": 23
   },
   {
     "id": "rectangle-clone-1775328172136",
     "type": "rectangle",
-    "x": 2294.22,
-    "y": 906.656,
+    "x": 2250,
+    "y": 925,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1273,13 +1273,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/russian_rectangle.png",
     "faction": "russian",
     "label": "Russian Rectangle",
-    "zIndex": 26
+    "zIndex": 22
   },
   {
     "id": "rectangle-clone-1775328173828",
     "type": "rectangle",
-    "x": 2350.67,
-    "y": 903.969,
+    "x": 2300,
+    "y": 925,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1287,13 +1287,69 @@ export async function setupInitialScene() {
     "image": "assets/misc/russian_rectangle.png",
     "faction": "russian",
     "label": "Russian Rectangle",
-    "zIndex": 25
+    "zIndex": 21
   },
   {
     "id": "rectangle-clone-1775328175853",
     "type": "rectangle",
-    "x": 2410.28,
-    "y": 901.039,
+    "x": 2350,
+    "y": 925,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/russian_rectangle.png",
+    "faction": "russian",
+    "label": "Russian Rectangle",
+    "zIndex": 33
+  },
+  {
+    "id": "rectangle-clone-1775328178826",
+    "type": "rectangle",
+    "x": 2400,
+    "y": 925,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/russian_rectangle.png",
+    "faction": "russian",
+    "label": "Russian Rectangle",
+    "zIndex": 34
+  },
+  {
+    "id": "rectangle-clone-1775328180586",
+    "type": "rectangle",
+    "x": 2450,
+    "y": 925,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/russian_rectangle.png",
+    "faction": "russian",
+    "label": "Russian Rectangle",
+    "zIndex": 35
+  },
+  {
+    "id": "rectangle-clone-1775328182989",
+    "type": "rectangle",
+    "x": 2500,
+    "y": 925,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/russian_rectangle.png",
+    "faction": "russian",
+    "label": "Russian Rectangle",
+    "zIndex": 36
+  },
+  {
+    "id": "rectangle-clone-1775328184644",
+    "type": "rectangle",
+    "x": 2550,
+    "y": 925,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1304,10 +1360,10 @@ export async function setupInitialScene() {
     "zIndex": 37
   },
   {
-    "id": "rectangle-clone-1775328178826",
+    "id": "rectangle-clone-1775328186681",
     "type": "rectangle",
-    "x": 2466.5,
-    "y": 902.461,
+    "x": 2600,
+    "y": 925,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1318,66 +1374,10 @@ export async function setupInitialScene() {
     "zIndex": 38
   },
   {
-    "id": "rectangle-clone-1775328180586",
-    "type": "rectangle",
-    "x": 2523.71,
-    "y": 901.563,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/russian_rectangle.png",
-    "faction": "russian",
-    "label": "Russian Rectangle",
-    "zIndex": 39
-  },
-  {
-    "id": "rectangle-clone-1775328182989",
-    "type": "rectangle",
-    "x": 2584.13,
-    "y": 898.376,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/russian_rectangle.png",
-    "faction": "russian",
-    "label": "Russian Rectangle",
-    "zIndex": 40
-  },
-  {
-    "id": "rectangle-clone-1775328184644",
-    "type": "rectangle",
-    "x": 2641.46,
-    "y": 896.525,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/russian_rectangle.png",
-    "faction": "russian",
-    "label": "Russian Rectangle",
-    "zIndex": 41
-  },
-  {
-    "id": "rectangle-clone-1775328186681",
-    "type": "rectangle",
-    "x": 2701.47,
-    "y": 896.609,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/russian_rectangle.png",
-    "faction": "russian",
-    "label": "Russian Rectangle",
-    "zIndex": 42
-  },
-  {
     "id": "rectangle-clone-1775328190189",
     "type": "rectangle",
-    "x": 2236.54,
-    "y": 980.668,
+    "x": 2197.55,
+    "y": 1026.23,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1385,13 +1385,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 22
+    "zIndex": 91
   },
   {
     "id": "rectangle-clone-1775328192836",
     "type": "rectangle",
-    "x": 2292.38,
-    "y": 982.334,
+    "x": 2250,
+    "y": 1025,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1399,13 +1399,27 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 23
+    "zIndex": 19
   },
   {
     "id": "rectangle-clone-1775328195219",
     "type": "rectangle",
-    "x": 2347.54,
-    "y": 980.517,
+    "x": 2300,
+    "y": 1025,
+    "w": 55,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/british_rectangle.png",
+    "faction": "british",
+    "label": "British Rectangle",
+    "zIndex": 20
+  },
+  {
+    "id": "rectangle-clone-1775328204731",
+    "type": "rectangle",
+    "x": 2350,
+    "y": 1025,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1416,24 +1430,10 @@ export async function setupInitialScene() {
     "zIndex": 24
   },
   {
-    "id": "rectangle-clone-1775328204731",
-    "type": "rectangle",
-    "x": 2405.66,
-    "y": 982.403,
-    "w": 55,
-    "h": 80,
-    "rotation": 0,
-    "locked": false,
-    "image": "assets/misc/british_rectangle.png",
-    "faction": "british",
-    "label": "British Rectangle",
-    "zIndex": 28
-  },
-  {
     "id": "rectangle-clone-1775328208352",
     "type": "rectangle",
-    "x": 2464.73,
-    "y": 980.924,
+    "x": 2400,
+    "y": 1025,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1441,13 +1441,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 30
+    "zIndex": 26
   },
   {
     "id": "rectangle-clone-1775328211019",
     "type": "rectangle",
-    "x": 2525.63,
-    "y": 979.551,
+    "x": 2450,
+    "y": 1025,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1455,13 +1455,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 29
+    "zIndex": 25
   },
   {
     "id": "rectangle-clone-1775328224402",
     "type": "rectangle",
-    "x": 2582,
-    "y": 978.667,
+    "x": 2500,
+    "y": 1025,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1469,13 +1469,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 31
+    "zIndex": 27
   },
   {
     "id": "rectangle-clone-1775328228426",
     "type": "rectangle",
-    "x": 2638.44,
-    "y": 979.631,
+    "x": 2550,
+    "y": 1025,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1483,13 +1483,13 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 44
+    "zIndex": 40
   },
   {
     "id": "rectangle-clone-1775328231186",
     "type": "rectangle",
-    "x": 2697.1,
-    "y": 982.385,
+    "x": 2600,
+    "y": 1025,
     "w": 55,
     "h": 80,
     "rotation": 0,
@@ -1497,7 +1497,7 @@ export async function setupInitialScene() {
     "image": "assets/misc/british_rectangle.png",
     "faction": "british",
     "label": "British Rectangle",
-    "zIndex": 43
+    "zIndex": 39
   },
   {
     "id": "cylinder-clone-1775328375735",
@@ -1511,7 +1511,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 46
+    "zIndex": 42
   },
   {
     "id": "cylinder-clone-1775328377787",
@@ -1525,7 +1525,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 47
+    "zIndex": 43
   },
   {
     "id": "cylinder-clone-1775328379987",
@@ -1539,7 +1539,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 48
+    "zIndex": 44
   },
   {
     "id": "cylinder-clone-1775328382853",
@@ -1553,7 +1553,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 49
+    "zIndex": 45
   },
   {
     "id": "cylinder-clone-1775328384880",
@@ -1567,7 +1567,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 50
+    "zIndex": 46
   },
   {
     "id": "cylinder-clone-1775328386970",
@@ -1581,7 +1581,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 51
+    "zIndex": 47
   },
   {
     "id": "cylinder-clone-1775328388853",
@@ -1595,7 +1595,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 52
+    "zIndex": 48
   },
   {
     "id": "cylinder-clone-1775328390332",
@@ -1609,7 +1609,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 53
+    "zIndex": 49
   },
   {
     "id": "cylinder-clone-1775328392120",
@@ -1623,7 +1623,7 @@ export async function setupInitialScene() {
     "image": "assets/players/black_cylinder.png",
     "color": "black",
     "label": "Player 1 Cylinder",
-    "zIndex": 54
+    "zIndex": 50
   },
   {
     "id": "cylinder-clone-1775328409622",
@@ -1637,7 +1637,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 59
+    "zIndex": 55
   },
   {
     "id": "cylinder-clone-1775328411270",
@@ -1651,7 +1651,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 60
+    "zIndex": 56
   },
   {
     "id": "cylinder-clone-1775328412708",
@@ -1665,7 +1665,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 61
+    "zIndex": 57
   },
   {
     "id": "cylinder-clone-1775328414287",
@@ -1679,7 +1679,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 62
+    "zIndex": 58
   },
   {
     "id": "cylinder-clone-1775328415971",
@@ -1693,7 +1693,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 63
+    "zIndex": 59
   },
   {
     "id": "cylinder-clone-1775328417471",
@@ -1707,7 +1707,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 64
+    "zIndex": 60
   },
   {
     "id": "cylinder-clone-1775328419208",
@@ -1721,7 +1721,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 65
+    "zIndex": 61
   },
   {
     "id": "cylinder-clone-1775328420820",
@@ -1735,7 +1735,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 66
+    "zIndex": 62
   },
   {
     "id": "cylinder-clone-1775328422320",
@@ -1749,7 +1749,7 @@ export async function setupInitialScene() {
     "image": "assets/players/gray_cylinder.png",
     "color": "gray",
     "label": "Player 3 Cylinder",
-    "zIndex": 67
+    "zIndex": 63
   },
   {
     "id": "cylinder-clone-1775328426544",
@@ -1763,7 +1763,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 68
+    "zIndex": 64
   },
   {
     "id": "cylinder-clone-1775328428184",
@@ -1777,7 +1777,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 69
+    "zIndex": 65
   },
   {
     "id": "cylinder-clone-1775328429881",
@@ -1791,7 +1791,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 70
+    "zIndex": 66
   },
   {
     "id": "cylinder-clone-1775328431504",
@@ -1805,7 +1805,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 71
+    "zIndex": 67
   },
   {
     "id": "cylinder-clone-1775328432993",
@@ -1819,7 +1819,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 72
+    "zIndex": 68
   },
   {
     "id": "cylinder-clone-1775328434801",
@@ -1833,7 +1833,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 73
+    "zIndex": 69
   },
   {
     "id": "cylinder-clone-1775328436594",
@@ -1847,7 +1847,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 74
+    "zIndex": 70
   },
   {
     "id": "cylinder-clone-1775328438537",
@@ -1861,7 +1861,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 75
+    "zIndex": 71
   },
   {
     "id": "cylinder-clone-1775328439937",
@@ -1875,7 +1875,7 @@ export async function setupInitialScene() {
     "image": "assets/players/red_cylinder.png",
     "color": "red",
     "label": "Player 4 Cylinder",
-    "zIndex": 76
+    "zIndex": 72
   },
   {
     "id": "cylinder-clone-1775328442854",
@@ -1889,7 +1889,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 77
+    "zIndex": 73
   },
   {
     "id": "cylinder-clone-1775328444554",
@@ -1903,7 +1903,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 78
+    "zIndex": 74
   },
   {
     "id": "cylinder-clone-1775328446071",
@@ -1917,7 +1917,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 80
+    "zIndex": 76
   },
   {
     "id": "cylinder-clone-1775328448169",
@@ -1931,7 +1931,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 79
+    "zIndex": 75
   },
   {
     "id": "cylinder-clone-1775328450397",
@@ -1945,7 +1945,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 81
+    "zIndex": 77
   },
   {
     "id": "cylinder-clone-1775328452321",
@@ -1959,7 +1959,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 82
+    "zIndex": 78
   },
   {
     "id": "cylinder-clone-1775328454471",
@@ -1973,7 +1973,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 83
+    "zIndex": 79
   },
   {
     "id": "cylinder-clone-1775328455954",
@@ -1987,7 +1987,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 84
+    "zIndex": 80
   },
   {
     "id": "cylinder-clone-1775328457571",
@@ -2001,7 +2001,7 @@ export async function setupInitialScene() {
     "image": "assets/players/yellow_cylinder.png",
     "color": "yellow",
     "label": "Player 5 Cylinder",
-    "zIndex": 85
+    "zIndex": 81
   },
   {
     "id": "cylinder-clone-1775328460238",
@@ -2015,7 +2015,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 86
+    "zIndex": 82
   },
   {
     "id": "cylinder-clone-1775328461737",
@@ -2029,7 +2029,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 87
+    "zIndex": 83
   },
   {
     "id": "cylinder-clone-1775328463048",
@@ -2043,7 +2043,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 88
+    "zIndex": 84
   },
   {
     "id": "cylinder-clone-1775328464595",
@@ -2057,7 +2057,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 89
+    "zIndex": 85
   },
   {
     "id": "cylinder-clone-1775328466304",
@@ -2071,7 +2071,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 90
+    "zIndex": 86
   },
   {
     "id": "cylinder-clone-1775328467904",
@@ -2085,7 +2085,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 91
+    "zIndex": 87
   },
   {
     "id": "cylinder-clone-1775328469604",
@@ -2099,7 +2099,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 92
+    "zIndex": 88
   },
   {
     "id": "cylinder-clone-1775328471121",
@@ -2113,7 +2113,7 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 93
+    "zIndex": 89
   },
   {
     "id": "cylinder-clone-1775328472721",
@@ -2127,7 +2127,49 @@ export async function setupInitialScene() {
     "image": "assets/players/blue_cylinder.png",
     "color": "blue",
     "label": "Player 2 Cylinder",
-    "zIndex": 94
+    "zIndex": 90
+  },
+  {
+    "id": "region-token-1", "type": "cylinder",
+    "x": 935, "y": 1550, "w": 60, "h": 60,
+    "rotation": 0, "locked": false,
+    "image": "assets/misc/region_token_1.png",
+    "label": "Region Token 1", "zIndex": 91
+  },
+  {
+    "id": "region-token-2", "type": "cylinder",
+    "x": 1005, "y": 1550, "w": 60, "h": 60,
+    "rotation": 0, "locked": false,
+    "image": "assets/misc/region_token_2.png",
+    "label": "Region Token 2", "zIndex": 92
+  },
+  {
+    "id": "region-token-3", "type": "cylinder",
+    "x": 1075, "y": 1550, "w": 60, "h": 60,
+    "rotation": 0, "locked": false,
+    "image": "assets/misc/region_token_3.png",
+    "label": "Region Token 3", "zIndex": 93
+  },
+  {
+    "id": "region-token-4", "type": "cylinder",
+    "x": 1145, "y": 1550, "w": 60, "h": 60,
+    "rotation": 0, "locked": false,
+    "image": "assets/misc/region_token_4.png",
+    "label": "Region Token 4", "zIndex": 94
+  },
+  {
+    "id": "region-token-5", "type": "cylinder",
+    "x": 1215, "y": 1550, "w": 60, "h": 60,
+    "rotation": 0, "locked": false,
+    "image": "assets/misc/region_token_5.png",
+    "label": "Region Token 5", "zIndex": 95
+  },
+  {
+    "id": "region-token-6", "type": "cylinder",
+    "x": 1285, "y": 1550, "w": 60, "h": 60,
+    "rotation": 0, "locked": false,
+    "image": "assets/misc/region_token_6.png",
+    "label": "Region Token 6", "zIndex": 96
   }
 ];
   for (const obj of objects) addObject(obj);
