@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pax Pamir — Card Data Query</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a2e; color: #e0e0e0; padding: 20px; line-height: 1.5; }
+  h1 { color: #e6c47f; margin-bottom: 4px; font-size: 1.6em; }
+  h1 small { font-size: 0.5em; color: #888; font-weight: normal; }
+  h2 { color: #c49b5f; margin: 24px 0 12px; font-size: 1.2em; border-bottom: 1px solid #333; padding-bottom: 4px; }
+  h3 { color: #aaa; margin: 12px 0 6px; font-size: 0.95em; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 16px; }
+  .panel.span-2 { grid-column: span 2; }
+  .panel { background: #16213e; border-radius: 8px; padding: 16px; border: 1px solid #2a2a4a; }
+  .panel h2 { margin-top: 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+  th, td { padding: 4px 8px; text-align: left; border-bottom: 1px solid #2a2a4a; }
+  th { color: #e6c47f; font-weight: 600; font-size: 0.85em; text-transform: uppercase; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:hover { background: #1a2a4e; }
+  tr.clickable { cursor: pointer; }
+  tr.clickable:hover { background: #1e3a5e; }
+
+  .bar { display: inline-block; height: 14px; background: #4a6fa5; border-radius: 2px; vertical-align: middle; margin-left: 6px; transition: width 0.3s; }
+  .bar.suit-intelligence { background: #5b8c5a; }
+  .bar.suit-political { background: #8b5e3c; }
+  .bar.suit-economic { background: #b8860b; }
+  .bar.suit-military { background: #8b2252; }
+
+  .matrix { font-size: 0.8em; overflow-x: auto; }
+  .matrix table { min-width: 400px; }
+  .matrix th, .matrix td { text-align: center; padding: 3px 6px; min-width: 50px; }
+  .matrix td.hot { background: #3a2a1a; color: #e6c47f; font-weight: bold; }
+  .matrix td.warm { background: #2a2a3a; }
+  .matrix td.self { background: #1a1a2e; color: #555; }
+
+  .card-list { max-height: 300px; overflow-y: auto; font-size: 0.85em; margin-top: 8px; }
+  .card-list .card-row { padding: 4px 8px; border-bottom: 1px solid #222; display: flex; gap: 8px; align-items: baseline; }
+  .card-list .card-row:hover { background: #1a2a4e; }
+  .card-id { color: #888; font-size: 0.85em; min-width: 36px; }
+  .card-info { flex: 1; }
+  .tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 0.8em; margin: 1px 2px; }
+  .tag.intelligence { background: #2a4a2a; color: #8bce8b; }
+  .tag.political { background: #4a2e1e; color: #d4a574; }
+  .tag.economic { background: #4a3e0e; color: #e6c47f; }
+  .tag.military { background: #4a1a2e; color: #d47a9e; }
+  .tag.action { background: #1a3a5a; color: #7ab8e6; }
+  .tag.icon { background: #3a2a4a; color: #b8a0d8; }
+  .tag.location { background: #2a3a3a; color: #80c0c0; }
+
+  .stat-big { font-size: 2em; font-weight: bold; color: #e6c47f; }
+  .stat-label { font-size: 0.85em; color: #888; }
+  .stats-row { display: flex; gap: 24px; flex-wrap: wrap; margin: 8px 0; }
+  .stat-box { text-align: center; }
+
+  .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
+  .filter-bar input, .filter-bar select { background: #16213e; border: 1px solid #3a3a5a; color: #e0e0e0; padding: 6px 10px; border-radius: 4px; font-size: 0.9em; }
+  .filter-bar input { width: 260px; }
+  .filter-bar select { min-width: 120px; }
+  .filter-bar label { font-size: 0.85em; color: #888; }
+
+  .detail-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #16213e; border: 2px solid #4a6fa5; border-radius: 10px; padding: 20px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+  .detail-popup h2 { margin-top: 0; }
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; }
+  .close-btn { position: absolute; top: 10px; right: 14px; background: none; border: none; color: #888; font-size: 1.4em; cursor: pointer; }
+  .close-btn:hover { color: #fff; }
+
+  .hidden { display: none; }
+
+  #results-count { color: #888; font-size: 0.85em; margin-left: 8px; }
+</style>
+</head>
+<body>
+
+<h1>Pax Pamir — Card Query <small>v1</small></h1>
+
+<div class="filter-bar">
+  <label>Filter:</label>
+  <input type="text" id="search" placeholder='e.g. "battle + betray", "Herat military"'>
+  <select id="filter-suit"><option value="">All suits</option></select>
+  <select id="filter-location"><option value="">All locations</option></select>
+  <select id="filter-action"><option value="">All actions</option></select>
+  <select id="filter-level"><option value="">All levels</option></select>
+  <span id="results-count"></span>
+</div>
+
+<div class="grid" id="dashboard"></div>
+
+<div id="popup-overlay" class="overlay hidden"></div>
+<div id="popup" class="detail-popup hidden">
+  <button class="close-btn" id="popup-close">&times;</button>
+  <div id="popup-content"></div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+let allCards = [];
+let normalCards = [];
+
+async function init() {
+  const res = await fetch('data/cards.json');
+  allCards = await res.json();
+  normalCards = allCards.filter(c => !c['dominance check'] && !c.event);
+
+  populateFilters();
+  renderDashboard(normalCards);
+
+  $('#search').addEventListener('input', applyFilters);
+  $('#filter-suit').addEventListener('change', applyFilters);
+  $('#filter-location').addEventListener('change', applyFilters);
+  $('#filter-action').addEventListener('change', applyFilters);
+  $('#filter-level').addEventListener('change', applyFilters);
+  $('#popup-overlay').addEventListener('click', closePopup);
+  $('#popup-close').addEventListener('click', closePopup);
+}
+
+function populateFilters() {
+  const suits = [...new Set(normalCards.map(c => c.suit))].sort();
+  const locations = [...new Set(normalCards.map(c => c.location))].sort();
+  const actions = [...new Set(normalCards.flatMap(c => Object.keys(c.actions || {})))].sort();
+  const levels = [...new Set(normalCards.map(c => c.level))].sort();
+
+  suits.forEach(s => $('#filter-suit').innerHTML += `<option value="${s}">${s}</option>`);
+  locations.forEach(l => $('#filter-location').innerHTML += `<option value="${l}">${l}</option>`);
+  actions.forEach(a => $('#filter-action').innerHTML += `<option value="${a}">${a}</option>`);
+  levels.forEach(l => $('#filter-level').innerHTML += `<option value="${l}">Level ${l}</option>`);
+}
+
+function applyFilters() {
+  let cards = normalCards;
+  const suit = $('#filter-suit').value;
+  const location = $('#filter-location').value;
+  const action = $('#filter-action').value;
+  const level = $('#filter-level').value;
+  const search = $('#search').value.trim().toLowerCase();
+
+  if (suit) cards = cards.filter(c => c.suit === suit);
+  if (location) cards = cards.filter(c => c.location === location);
+  if (action) cards = cards.filter(c => c.actions && c.actions[action]);
+  if (level) cards = cards.filter(c => c.level === Number(level));
+
+  if (search) {
+    // Support "action1 + action2" syntax for co-occurrence
+    if (search.includes('+')) {
+      const terms = search.split('+').map(t => t.trim());
+      cards = cards.filter(c => {
+        const blob = cardBlob(c);
+        return terms.every(t => blob.includes(t));
+      });
+    } else {
+      const terms = search.split(/\s+/);
+      cards = cards.filter(c => {
+        const blob = cardBlob(c);
+        return terms.every(t => blob.includes(t));
+      });
+    }
+  }
+
+  $('#results-count').textContent = `${cards.length} / ${normalCards.length} cards`;
+  renderDashboard(cards);
+}
+
+function cardBlob(c) {
+  const parts = [
+    c.id, c.suit, c.location, `level${c.level}`,
+    ...Object.keys(c.actions || {}),
+    ...Object.keys(c['impact icons'] || {}),
+    c.patriot || '', c.prize || '',
+    ...Object.keys(c.passive || {}),
+    ...Object.values(c.passive || {}),
+  ];
+  return parts.join(' ').toLowerCase();
+}
+
+function renderDashboard(cards) {
+  const d = $('#dashboard');
+  d.innerHTML = '';
+
+  d.appendChild(overviewPanel(cards));
+  d.appendChild(suitPanel(cards));
+  d.appendChild(locationPanel(cards));
+  d.appendChild(levelPanel(cards));
+  d.appendChild(actionsPanel(cards));
+  d.appendChild(actionCountPanel(cards));
+  d.appendChild(coOccurrencePanel(cards));
+  d.appendChild(impactIconsPanel(cards));
+  d.appendChild(iconCountPanel(cards));
+  d.appendChild(favoredSuitPanel(cards));
+  d.appendChild(prizePanel(cards));
+  d.appendChild(patriotPanel(cards));
+  d.appendChild(passivePanel(cards));
+}
+
+// --- Panels ---
+
+function overviewPanel(cards) {
+  const total = allCards.length;
+  const dom = allCards.filter(c => c['dominance check']).length;
+  const evt = allCards.filter(c => c.event).length;
+  const withActions = cards.filter(c => c.actions).length;
+  const withPassive = cards.filter(c => c.passive).length;
+  const withPatriot = cards.filter(c => c.patriot).length;
+  const withPrize = cards.filter(c => c.prize).length;
+  const noActions = cards.filter(c => !c.actions).length;
+
+  return panel('Overview', `
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-big">${total}</div><div class="stat-label">total cards</div></div>
+      <div class="stat-box"><div class="stat-big">${cards.length}</div><div class="stat-label">normal (filtered)</div></div>
+      <div class="stat-box"><div class="stat-big">${dom}</div><div class="stat-label">dominance</div></div>
+      <div class="stat-box"><div class="stat-big">${evt}</div><div class="stat-label">events</div></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-big">${withActions}</div><div class="stat-label">with actions</div></div>
+      <div class="stat-box"><div class="stat-big">${noActions}</div><div class="stat-label">no actions</div></div>
+      <div class="stat-box"><div class="stat-big">${withPassive}</div><div class="stat-label">with passive</div></div>
+      <div class="stat-box"><div class="stat-big">${withPatriot}</div><div class="stat-label">patriots</div></div>
+      <div class="stat-box"><div class="stat-big">${withPrize}</div><div class="stat-label">with prize</div></div>
+    </div>
+  `);
+}
+
+function suitPanel(cards) {
+  const counts = countBy(cards, c => c.suit);
+  const max = Math.max(...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([suit, n]) =>
+    `<tr class="clickable" data-filter="suit" data-value="${suit}">
+      <td><span class="tag ${suit}">${suit}</span></td>
+      <td class="num">${n}</td>
+      <td><span class="bar suit-${suit}" style="width:${(n/max)*120}px"></span></td>
+    </tr>`
+  ).join('');
+  return panel('By Suit', `<table><tr><th>Suit</th><th>#</th><th></th></tr>${rows}</table>`, 'clickRows');
+}
+
+function locationPanel(cards) {
+  const counts = countBy(cards, c => c.location);
+  const max = Math.max(...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([loc, n]) =>
+    `<tr class="clickable" data-filter="location" data-value="${loc}">
+      <td><span class="tag location">${loc}</span></td>
+      <td class="num">${n}</td>
+      <td><span class="bar" style="width:${(n/max)*120}px"></span></td>
+    </tr>`
+  ).join('');
+  return panel('By Location', `<table><tr><th>Location</th><th>#</th><th></th></tr>${rows}</table>`, 'clickRows');
+}
+
+function levelPanel(cards) {
+  const counts = countBy(cards, c => c.level);
+  const max = Math.max(...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => a[0] - b[0]).map(([lvl, n]) =>
+    `<tr class="clickable" data-filter="level" data-value="${lvl}">
+      <td>Level ${lvl}</td>
+      <td class="num">${n}</td>
+      <td><span class="bar" style="width:${(n/max)*120}px"></span></td>
+    </tr>`
+  ).join('');
+  return panel('By Level', `<table><tr><th>Level</th><th>#</th><th></th></tr>${rows}</table>`, 'clickRows');
+}
+
+function actionsPanel(cards) {
+  const freq = {};
+  cards.forEach(c => {
+    Object.keys(c.actions || {}).forEach(a => freq[a] = (freq[a] || 0) + 1);
+  });
+  const max = Math.max(...Object.values(freq));
+  const rows = Object.entries(freq).sort((a,b) => b[1] - a[1]).map(([action, n]) =>
+    `<tr class="clickable" data-show="action" data-value="${action}">
+      <td><span class="tag action">${action}</span></td>
+      <td class="num">${n}</td>
+      <td><span class="bar" style="width:${(n/max)*120}px"></span></td>
+    </tr>`
+  ).join('');
+  return panel('Action Frequency', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">How many cards include each action (click row to see cards)</p>
+    <table><tr><th>Action</th><th># cards</th><th></th></tr>${rows}</table>
+  `, 'clickShowCards');
+}
+
+function actionCountPanel(cards) {
+  const counts = {};
+  cards.forEach(c => {
+    const n = Object.keys(c.actions || {}).length;
+    counts[n] = (counts[n] || 0) + 1;
+  });
+  const max = Math.max(...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => a[0] - b[0]).map(([n, cnt]) =>
+    `<tr class="clickable" data-show="actionCount" data-value="${n}">
+      <td>${n} action${n !== '1' ? 's' : ''}</td>
+      <td class="num">${cnt}</td>
+      <td><span class="bar" style="width:${(cnt/max)*120}px"></span></td>
+    </tr>`
+  ).join('');
+  return panel('Cards by # of Actions', `
+    <table><tr><th>Actions</th><th># cards</th><th></th></tr>${rows}</table>
+  `, 'clickShowCards');
+}
+
+function coOccurrencePanel(cards) {
+  const actions = [...new Set(cards.flatMap(c => Object.keys(c.actions || {})))].sort();
+  const matrix = {};
+  actions.forEach(a => { matrix[a] = {}; actions.forEach(b => matrix[a][b] = 0); });
+
+  cards.forEach(c => {
+    const acts = Object.keys(c.actions || {});
+    acts.forEach(a => {
+      acts.forEach(b => {
+        if (a !== b) matrix[a][b]++;
+      });
+      matrix[a][a]++; // self = total appearances
+    });
+  });
+
+  const maxOff = Math.max(1, ...actions.flatMap(a => actions.map(b => a === b ? 0 : matrix[a][b])));
+
+  const header = `<tr><th></th>${actions.map(a => `<th>${a.slice(0,4)}</th>`).join('')}</tr>`;
+  const rows = actions.map(a => {
+    const cells = actions.map(b => {
+      const v = matrix[a][b];
+      if (a === b) return `<td class="self">(${v})</td>`;
+      const cls = v >= maxOff * 0.6 ? 'hot' : v > 0 ? 'warm' : '';
+      return `<td class="${cls}" title="${a} + ${b}: ${v} cards">${v || ''}</td>`;
+    }).join('');
+    return `<tr><th>${a}</th>${cells}</tr>`;
+  }).join('');
+
+  const sumCells = actions.map(b => {
+    const total = actions.reduce((sum, a) => sum + (a === b ? 0 : matrix[a][b]), 0);
+    return `<td class="num" style="font-weight:bold;color:#e6c47f">${total}</td>`;
+  }).join('');
+  const sumRow = `<tr><th style="color:#e6c47f">Sum</th>${sumCells}</tr>`;
+
+  const solosCells = actions.map(b => {
+    const colSum = actions.reduce((sum, a) => sum + (a === b ? 0 : matrix[a][b]), 0);
+    const solo = matrix[b][b] - colSum;
+    return `<td class="num" style="font-weight:bold;color:#8bce8b">${solo}</td>`;
+  }).join('');
+  const solosRow = `<tr><th style="color:#8bce8b">Total - Sum</th>${solosCells}</tr>`;
+
+  return panel('Action Co-occurrence', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">How often pairs of actions appear on the same card. Diagonal = total. Hover for details.</p>
+    <div class="matrix"><table>${header}${rows}${sumRow}${solosRow}</table></div>
+  `, null, 'span-2');
+}
+
+function impactIconsPanel(cards) {
+  const freq = {};
+  cards.forEach(c => {
+    Object.entries(c['impact icons'] || {}).forEach(([icon, count]) => {
+      if (icon === 'favored suit') return;
+      freq[icon] = (freq[icon] || 0) + count;
+    });
+  });
+  // Also count how many cards have each icon
+  const cardCount = {};
+  cards.forEach(c => {
+    Object.keys(c['impact icons'] || {}).forEach(icon => {
+      if (icon === 'favored suit') return;
+      cardCount[icon] = (cardCount[icon] || 0) + 1;
+    });
+  });
+
+  const max = Math.max(...Object.values(freq));
+  const rows = Object.entries(freq).sort((a,b) => b[1] - a[1]).map(([icon, total]) =>
+    `<tr class="clickable" data-show="icon" data-value="${icon}">
+      <td><span class="tag icon">${icon}</span></td>
+      <td class="num">${total}</td>
+      <td class="num">${cardCount[icon]} cards</td>
+      <td><span class="bar" style="width:${(total/max)*100}px;background:#7a5ea8"></span></td>
+    </tr>`
+  ).join('');
+  return panel('Impact Icons', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">Total icon instances and how many cards carry each (click row for cards)</p>
+    <table><tr><th>Icon</th><th>Total</th><th>Cards</th><th></th></tr>${rows}</table>
+  `, 'clickShowCards');
+}
+
+function iconCountPanel(cards) {
+  const counts = {};
+  cards.forEach(c => {
+    const icons = c['impact icons'] || {};
+    const total = Object.entries(icons).reduce((sum, [k, v]) => k === 'favored suit' ? sum : sum + v, 0);
+    counts[total] = (counts[total] || 0) + 1;
+  });
+  const max = Math.max(...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => a[0] - b[0]).map(([n, cnt]) =>
+    `<tr class="clickable" data-show="iconCount" data-value="${n}">
+      <td>${n} icon${n !== '1' ? 's' : ''}</td>
+      <td class="num">${cnt}</td>
+      <td><span class="bar" style="width:${(cnt/max)*120}px;background:#7a5ea8"></span></td>
+    </tr>`
+  ).join('');
+  return panel('Cards by # of Impact Icons', `
+    <table><tr><th>Icons</th><th># cards</th><th></th></tr>${rows}</table>
+  `, 'clickShowCards');
+}
+
+function favoredSuitPanel(cards) {
+  const counts = {};
+  let withFavored = 0;
+  cards.forEach(c => {
+    const fs = (c['impact icons'] || {})['favored suit'];
+    if (fs) { counts[fs] = (counts[fs] || 0) + 1; withFavored++; }
+  });
+  const max = Math.max(1, ...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([suit, n]) =>
+    `<tr><td><span class="tag ${suit}">${suit}</span></td><td class="num">${n}</td>
+     <td><span class="bar suit-${suit}" style="width:${(n/max)*100}px"></span></td></tr>`
+  ).join('');
+  return panel('Favored Suit Distribution', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">${withFavored} cards have a favored suit icon</p>
+    <table><tr><th>Favored</th><th>#</th><th></th></tr>${rows}</table>
+  `);
+}
+
+function prizePanel(cards) {
+  const counts = {};
+  cards.forEach(c => { if (c.prize) counts[c.prize] = (counts[c.prize] || 0) + 1; });
+  const noPrize = cards.filter(c => !c.prize).length;
+  const max = Math.max(...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([prize, n]) =>
+    `<tr><td>${prize}</td><td class="num">${n}</td>
+     <td><span class="bar" style="width:${(n/max)*100}px;background:#5a8a5a"></span></td></tr>`
+  ).join('');
+  return panel('Prizes', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">${cards.length - noPrize} cards have a prize, ${noPrize} don't</p>
+    <table><tr><th>Prize</th><th>#</th><th></th></tr>${rows}</table>
+  `);
+}
+
+function patriotPanel(cards) {
+  const counts = {};
+  cards.forEach(c => { if (c.patriot) counts[c.patriot] = (counts[c.patriot] || 0) + 1; });
+  const noPatriot = cards.filter(c => !c.patriot).length;
+  const max = Math.max(1, ...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([p, n]) =>
+    `<tr><td>${p}</td><td class="num">${n}</td>
+     <td><span class="bar" style="width:${(n/max)*100}px;background:#5a5a8a"></span></td></tr>`
+  ).join('');
+  return panel('Patriots', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">${cards.length - noPatriot} cards have a patriot, ${noPatriot} don't</p>
+    <table><tr><th>Patriot</th><th>#</th><th></th></tr>${rows}</table>
+  `);
+}
+
+function passivePanel(cards) {
+  const passives = [];
+  cards.forEach(c => {
+    if (c.passive) {
+      Object.entries(c.passive).forEach(([name, desc]) => {
+        passives.push({ name, desc, card: c });
+      });
+    }
+  });
+
+  // Group by name
+  const grouped = {};
+  passives.forEach(p => {
+    if (!grouped[p.name]) grouped[p.name] = [];
+    grouped[p.name].push(p);
+  });
+
+  const rows = Object.entries(grouped).sort((a,b) => b[1].length - a[1].length).map(([name, entries]) =>
+    `<tr>
+      <td>${name}</td>
+      <td class="num">${entries.length}</td>
+      <td style="font-size:0.8em;color:#888">${entries.map(e => e.card.id).join(', ')}</td>
+    </tr>`
+  ).join('');
+
+  return panel('Passive Abilities', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">${passives.length} total passive abilities across ${Object.keys(grouped).length} distinct names</p>
+    <table><tr><th>Name</th><th>#</th><th>Cards</th></tr>${rows}</table>
+  `);
+}
+
+// --- Helpers ---
+
+function countBy(arr, fn) {
+  const counts = {};
+  arr.forEach(item => { const k = fn(item); counts[k] = (counts[k] || 0) + 1; });
+  return counts;
+}
+
+function panel(title, html, behavior, extraClass) {
+  const div = document.createElement('div');
+  div.className = 'panel' + (extraClass ? ' ' + extraClass : '');
+  div.innerHTML = `<h2>${title}</h2>${html}`;
+
+  if (behavior === 'clickRows') {
+    div.querySelectorAll('tr.clickable').forEach(tr => {
+      tr.addEventListener('click', () => {
+        const filter = tr.dataset.filter;
+        const value = tr.dataset.value;
+        const sel = $(`#filter-${filter}`);
+        if (sel) { sel.value = value; applyFilters(); }
+      });
+    });
+  }
+
+  if (behavior === 'clickShowCards') {
+    div.querySelectorAll('tr.clickable').forEach(tr => {
+      tr.addEventListener('click', () => {
+        const type = tr.dataset.show;
+        const value = tr.dataset.value;
+        showCardPopup(type, value);
+      });
+    });
+  }
+
+  return div;
+}
+
+function showCardPopup(type, value) {
+  // Get currently filtered cards
+  let cards = getFilteredCards();
+
+  let title = '';
+  let filtered = [];
+
+  if (type === 'action') {
+    title = `Cards with action: ${value}`;
+    filtered = cards.filter(c => c.actions && c.actions[value]);
+  } else if (type === 'actionCount') {
+    const n = Number(value);
+    title = `Cards with ${n} action${n !== 1 ? 's' : ''}`;
+    filtered = cards.filter(c => Object.keys(c.actions || {}).length === n);
+  } else if (type === 'icon') {
+    title = `Cards with icon: ${value}`;
+    filtered = cards.filter(c => (c['impact icons'] || {})[value]);
+  } else if (type === 'iconCount') {
+    const n = Number(value);
+    title = `Cards with ${n} impact icon${n !== 1 ? 's' : ''}`;
+    filtered = cards.filter(c => {
+      const icons = c['impact icons'] || {};
+      const total = Object.entries(icons).reduce((sum, [k, v]) => k === 'favored suit' ? sum : sum + v, 0);
+      return total === n;
+    });
+  }
+
+  const html = `<h2>${title} (${filtered.length})</h2><div class="card-list">${filtered.map(renderCard).join('')}</div>`;
+  $('#popup-content').innerHTML = html;
+  $('#popup').classList.remove('hidden');
+  $('#popup-overlay').classList.remove('hidden');
+}
+
+function getFilteredCards() {
+  let cards = normalCards;
+  const suit = $('#filter-suit').value;
+  const location = $('#filter-location').value;
+  const action = $('#filter-action').value;
+  const level = $('#filter-level').value;
+  const search = $('#search').value.trim().toLowerCase();
+
+  if (suit) cards = cards.filter(c => c.suit === suit);
+  if (location) cards = cards.filter(c => c.location === location);
+  if (action) cards = cards.filter(c => c.actions && c.actions[action]);
+  if (level) cards = cards.filter(c => c.level === Number(level));
+  if (search) {
+    const terms = search.split(/[+\s]+/).map(t => t.trim()).filter(Boolean);
+    cards = cards.filter(c => {
+      const blob = cardBlob(c);
+      return terms.every(t => blob.includes(t));
+    });
+  }
+  return cards;
+}
+
+function renderCard(c) {
+  const icons = Object.entries(c['impact icons'] || {})
+    .filter(([k]) => k !== 'favored suit')
+    .map(([k, v]) => `<span class="tag icon">${k}:${v}</span>`).join('');
+  const favored = (c['impact icons'] || {})['favored suit'];
+  const actions = Object.entries(c.actions || {})
+    .map(([k, v]) => `<span class="tag action">${k}:${v}</span>`).join('');
+  const extras = [
+    c.patriot ? `patriot:${c.patriot}` : '',
+    c.prize ? `prize:${c.prize}` : '',
+    c.passive ? Object.keys(c.passive).join(', ') : '',
+  ].filter(Boolean).join(' | ');
+
+  return `<div class="card-row">
+    <span class="card-id">${c.id}</span>
+    <span class="card-info">
+      <span class="tag ${c.suit}">${c.suit}</span>
+      <span class="tag location">${c.location}</span>
+      L${c.level}
+      ${favored ? `<span class="tag ${favored}">fav:${favored}</span>` : ''}
+      ${icons} ${actions}
+      ${extras ? `<br><span style="font-size:0.85em;color:#999">${extras}</span>` : ''}
+    </span>
+  </div>`;
+}
+
+function closePopup() {
+  $('#popup').classList.add('hidden');
+  $('#popup-overlay').classList.add('hidden');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
+init();
+</script>
+</body>
+</html>

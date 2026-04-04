@@ -647,7 +647,7 @@
     "location":"Herat",
     "impact icons":{"road":2,"army":1},
     "actions":{"battle":2},
-    "passive":{"Herat Influence":"You do not pay for Herat cards in the market."
+    "passive":{"Herat Influence":"You do not pay for Herat cards in the market."}
   },
   {
     "id": "c067",
@@ -962,7 +962,7 @@
     "location":"Transcaspia",
     "impact icons":{"army":1,"favored suit":"intelligence"},
     "actions":{"build":1},
-    "passive":{"Citadel": "Your tribes in Transcaspia cannot be attacked."},  
+    "passive":{"Citadel": "Your tribes in Transcaspia cannot be attacked."}
   },
   {
     "id": "c098",
