@@ -2130,46 +2130,95 @@ export async function setupInitialScene() {
     "zIndex": 90
   },
   {
-    "id": "region-token-1", "type": "cylinder",
-    "x": 935, "y": 1550, "w": 60, "h": 60,
-    "rotation": 0, "locked": false,
+    "id": "region-token-1",
+    "type": "cylinder",
+    "x": 1651.86,
+    "y": 907.679,
+    "w": 80,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
     "image": "assets/misc/region_token_1.png",
-    "label": "Region Token 1", "zIndex": 91
+    "label": "Region Token 1",
+    "zIndex": 95
   },
   {
-    "id": "region-token-2", "type": "cylinder",
-    "x": 1005, "y": 1550, "w": 60, "h": 60,
-    "rotation": 0, "locked": false,
+    "id": "region-token-2",
+    "type": "cylinder",
+    "x": 1182.77,
+    "y": 890.867,
+    "w": 80,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
     "image": "assets/misc/region_token_2.png",
-    "label": "Region Token 2", "zIndex": 92
+    "label": "Region Token 2",
+    "zIndex": 96
   },
   {
-    "id": "region-token-3", "type": "cylinder",
-    "x": 1075, "y": 1550, "w": 60, "h": 60,
-    "rotation": 0, "locked": false,
+    "id": "region-token-3",
+    "type": "cylinder",
+    "x": 1716.77,
+    "y": 1214.74,
+    "w": 80,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
     "image": "assets/misc/region_token_3.png",
-    "label": "Region Token 3", "zIndex": 93
+    "label": "Region Token 3",
+    "zIndex": 97
   },
   {
-    "id": "region-token-4", "type": "cylinder",
-    "x": 1145, "y": 1550, "w": 60, "h": 60,
-    "rotation": 0, "locked": false,
+    "id": "region-token-4",
+    "type": "cylinder",
+    "x": 1940.22,
+    "y": 1070.45,
+    "w": 80,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
     "image": "assets/misc/region_token_4.png",
-    "label": "Region Token 4", "zIndex": 94
+    "label": "Region Token 4",
+    "zIndex": 99
   },
   {
-    "id": "region-token-5", "type": "cylinder",
-    "x": 1215, "y": 1550, "w": 60, "h": 60,
-    "rotation": 0, "locked": false,
+    "id": "region-token-5",
+    "type": "cylinder",
+    "x": 1405.3,
+    "y": 1158.14,
+    "w": 80,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
     "image": "assets/misc/region_token_5.png",
-    "label": "Region Token 5", "zIndex": 95
+    "label": "Region Token 5",
+    "zIndex": 98
   },
   {
-    "id": "region-token-6", "type": "cylinder",
-    "x": 1285, "y": 1550, "w": 60, "h": 60,
-    "rotation": 0, "locked": false,
+    "id": "region-token-6",
+    "type": "cylinder",
+    "x": 1126.21,
+    "y": 1203.3,
+    "w": 80,
+    "h": 80,
+    "rotation": 0,
+    "locked": false,
     "image": "assets/misc/region_token_6.png",
-    "label": "Region Token 6", "zIndex": 96
+    "label": "Region Token 6",
+    "zIndex": 100
+  },
+  {
+    "id": "favored-suit",
+    "type": "cylinder",
+    "x": 1355,
+    "y": 1550,
+    "w": 60,
+    "h": 60,
+    "rotation": 0,
+    "locked": false,
+    "image": "assets/misc/favored_suit.png",
+    "label": "Favored Suit",
+    "zIndex": 101
   }
 ];
   for (const obj of objects) addObject(obj);
