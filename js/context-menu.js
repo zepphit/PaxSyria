@@ -125,6 +125,11 @@ function buildItems(obj, id) {
     items.push({ sep: true });
     items.push({ label: `Shuffle (${count} cards)`, action: () => cb.onShuffle?.(id) });
     items.push({ label: "Draw top card",             action: () => cb.onDraw?.(id)    });
+    items.push({ sep: true });
+    items.push({ label: "Setup Market", header: true });
+    items.push({ label: "3 Players", action: () => cb.onSetupMarket?.(id, 3) });
+    items.push({ label: "4 Players", action: () => cb.onSetupMarket?.(id, 4) });
+    items.push({ label: "5 Players", action: () => cb.onSetupMarket?.(id, 5) });
   }
 
   if (type === "dial") {

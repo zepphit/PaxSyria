@@ -185,6 +185,120 @@ export function shuffleDeck(deckId) {
   }
 }
 
+// ── Card categories ───────────────────────────────────────────────────────────
+
+function cardNumber(id) {
+  const m = id.match(/card[_-]?(\d+)/i);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function categorizeCardIds(cardIds) {
+  const normal = [], event = [], dominance = [];
+  for (const id of cardIds) {
+    const n = cardNumber(id);
+    if (n === null) continue;
+    if (n <= 100)       normal.push(id);
+    else if (n <= 104)  dominance.push(id);
+    else                event.push(id);
+  }
+  return { normal, event, dominance };
+}
+
+function shuffleArr(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/**
+ * Sets up the card market for n players (3, 4 or 5).
+ * Rebuilds the deck into stacks A–F, then draws 12 cards face-up onto the market.
+ * Market board: x=935, y=50, w=1200, h=640. Cards: 138×193.
+ */
+export function setupCardMarket(deckId, playerCount) {
+  const deck = state.objects[deckId];
+  if (!deck || deck.type !== "deck") return;
+
+  // Collect all card ids (in deck + any already on table from this deck)
+  const allCardIds = [...deck.cards];
+  const cardData = { ...(deck._cardData || {}) };
+
+  const { normal, event, dominance } = categorizeCardIds(allCardIds);
+  shuffleArr(normal);
+  shuffleArr(event);
+  shuffleArr(dominance);
+
+  const n = playerCount;
+
+  // Build stacks: each is [cardIds], will be shuffled
+  // Stack composition per plan (A=top, F=bottom)
+  const stackDefs = [
+    { normalCount: 5 + n, eventCount: 0, domCount: 0 }, // A
+    { normalCount: 5 + n, eventCount: 2, domCount: 0 }, // B
+    { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // C
+    { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // D
+    { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // E
+    { normalCount: 5 + n, eventCount: 1, domCount: 1 }, // F
+  ];
+
+  const stacks = stackDefs.map(({ normalCount, eventCount, domCount }) => {
+    const ids = [
+      ...normal.splice(0, normalCount),
+      ...event.splice(0, eventCount),
+      ...dominance.splice(0, domCount),
+    ];
+    return shuffleArr(ids);
+  });
+
+  // Assemble final deck: F at bottom (index 0), A on top (last)
+  // deck.cards: bottom = index 0, top = last
+  const finalCards = [
+    ...stacks[5], // F (bottom)
+    ...stacks[4], // E
+    ...stacks[3], // D
+    ...stacks[2], // C
+    ...stacks[1], // B
+    ...stacks[0], // A (top)
+  ];
+
+  deck.cards = finalCards;
+  deck._cardData = cardData;
+
+  // Draw 12 cards face-up onto the market board
+  // Market: x=935, y=50, w=1200, h=640, 2 rows × 6 cols, card 138×193
+  const MARKET_X = 935, MARKET_Y = 50, MARKET_W = 1200, MARKET_H = 640;
+  const CARD_W = 138, CARD_H = 193;
+  const COLS = 6, ROWS = 2;
+  const colGap = (MARKET_W - COLS * CARD_W) / (COLS + 1);
+  const rowGap = (MARKET_H - ROWS * CARD_H) / (ROWS + 1);
+
+  const maxZ = Object.values(state.objects).reduce((m, o) => Math.max(m, o.zIndex ?? 0), 0);
+
+  for (let i = 0; i < 12; i++) {
+    const cardId = deck.cards.pop();
+    if (!cardId) break;
+    const data = cardData[cardId] || {};
+    const col = i % COLS;
+    const row = Math.floor(i / COLS);
+    const card = {
+      ...data,
+      id: cardId,
+      type: "card",
+      x: MARKET_X + colGap + col * (CARD_W + colGap),
+      y: MARKET_Y + rowGap + row * (CARD_H + rowGap),
+      w: CARD_W,
+      h: CARD_H,
+      rotation: 0,
+      locked: false,
+      faceUp: true,
+      zIndex: maxZ + i + 1,
+    };
+    state.objects[cardId] = card;
+  }
+}
+
 // ── Save / Load ───────────────────────────────────────────────────────────────
 
 export function saveToFile() {
