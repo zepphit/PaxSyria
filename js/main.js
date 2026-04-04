@@ -6,7 +6,7 @@
  */
 
 import {
-  getState, getObject, pushUndo, undo, redo,
+  getState, setState, getObject, pushUndo, undo, redo,
   moveObject, bringToFront, rotateCW, rotateCCW,
   setLocked, flipCard, removeObject, addObject,
   addCardToDeck, drawFromDeck, shuffleDeck,
@@ -34,15 +34,15 @@ let panStart  = { x: 0, y: 0 };
 let spaceHeld = false;
 
 function clampPan() {
-  const BOARD_W = 3100;
-  const BOARD_H = 1950;
+  const BOARD_W = 3200;
+  const BOARD_H = 2200;
   const viewportH = viewport.clientHeight;
 
   // Calculate allowed pan bounds (board cannot go beyond viewport edges)
-  const minPanX = -(BOARD_W * zoom - viewport.clientWidth);
-  const maxPanX = 0;
-  const minPanY = -(BOARD_H * zoom - viewportH);
-  const maxPanY = 0;
+  const minPanX = -(BOARD_W * zoom - viewport.clientWidth)/2;
+  const maxPanX = (BOARD_W * zoom - viewport.clientWidth)/2;
+  const minPanY = -(BOARD_H * zoom - viewportH)/2;
+  const maxPanY = (BOARD_H * zoom - viewportH)/2;
 
   pan.x = Math.max(minPanX, Math.min(maxPanX, pan.x));
   pan.y = Math.max(minPanY, Math.min(maxPanY, pan.y));
@@ -104,15 +104,47 @@ document.addEventListener("keyup", (e) => {
 });
 
 // ── Toolbar ───────────────────────────────────────────────────────────────────
+// ── Save / Load from localStorage ─────────────────────────────────────────────
+function saveToLocalStorage() {
+  const json = JSON.stringify(getState());
+  // Rotate: current → backup before overwriting
+  const current = localStorage.getItem("pax-checkpoint");
+  if (current) localStorage.setItem("pax-checkpoint-backup", current);
+  localStorage.setItem("pax-checkpoint", json);
+  alert("Game saved!");
+}
+
+function loadCheckpoint() {
+  // Try primary, then backup
+  for (const key of ["pax-checkpoint", "pax-checkpoint-backup"]) {
+    const raw = localStorage.getItem(key);
+    if (!raw) continue;
+    try {
+      return JSON.parse(raw);
+    } catch (err) {
+      console.error(`Failed to parse ${key}:`, err);
+    }
+  }
+  return null;
+}
+
+function resetToCheckpoint() {
+  if (confirm("Reset to last saved state? This cannot be undone.")) {
+    const state = loadCheckpoint();
+    if (state) {
+      setState(state);
+      fullRender();
+    } else {
+      // No checkpoint at all — rebuild initial scene without touching localStorage
+      location.reload();
+    }
+  }
+}
+
 document.getElementById("btn-undo").addEventListener("click", doUndo);
 document.getElementById("btn-redo").addEventListener("click", doRedo);
-document.getElementById("btn-save").addEventListener("click", saveToFile);
-document.getElementById("btn-reset").addEventListener("click", () => {
-  if (confirm("Reset to initial state? This cannot be undone.")) {
-    localStorage.clear();
-    location.reload();
-  }
-});
+document.getElementById("btn-save").addEventListener("click", saveToLocalStorage);
+document.getElementById("btn-reset").addEventListener("click", resetToCheckpoint);
 document.getElementById("btn-zoom-in").addEventListener("click",  () => { zoom = Math.min(ZOOM_MAX, zoom + ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-out").addEventListener("click", () => { zoom = Math.max(ZOOM_MIN, zoom - ZOOM_STEP); applyTransform(); });
 document.getElementById("btn-zoom-fit").addEventListener("click", () => {
@@ -251,14 +283,20 @@ async function init() {
     onRemove(id) { action(() => removeObject(id)); },
   });
 
-  // Build the initial scene
-  console.log("About to run setupInitialScene...");
-  try {
-    await setupInitialScene();
-    console.log("setupInitialScene completed, objects in state:", Object.keys(getState().objects).length);
-  } catch (err) {
-    console.error("setupInitialScene failed:", err);
-    throw err;
+  // Load from checkpoint or build initial scene
+  const saved = loadCheckpoint();
+  if (saved) {
+    setState(saved);
+    console.log("Loaded checkpoint, objects:", Object.keys(getState().objects).length);
+  } else {
+    console.log("No checkpoint, building initial scene...");
+    try {
+      await setupInitialScene();
+      console.log("setupInitialScene completed, objects:", Object.keys(getState().objects).length);
+    } catch (err) {
+      console.error("setupInitialScene failed:", err);
+      throw err;
+    }
   }
 
   console.log("About to applyTransform...");
