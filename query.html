@@ -91,6 +91,7 @@
   <select id="filter-location"><option value="">All locations</option></select>
   <select id="filter-action"><option value="">All actions</option></select>
   <select id="filter-level"><option value="">All levels</option></select>
+  <select id="filter-type"><option value="">All types</option></select>
   <span id="results-count"></span>
 </div>
 
@@ -122,6 +123,7 @@ async function init() {
   $('#filter-location').addEventListener('change', applyFilters);
   $('#filter-action').addEventListener('change', applyFilters);
   $('#filter-level').addEventListener('change', applyFilters);
+  $('#filter-type').addEventListener('change', applyFilters);
   $('#popup-overlay').addEventListener('click', closePopup);
   $('#popup-close').addEventListener('click', closePopup);
 }
@@ -136,6 +138,8 @@ function populateFilters() {
   locations.forEach(l => $('#filter-location').innerHTML += `<option value="${l}">${l}</option>`);
   actions.forEach(a => $('#filter-action').innerHTML += `<option value="${a}">${a}</option>`);
   levels.forEach(l => $('#filter-level').innerHTML += `<option value="${l}">Level ${l}</option>`);
+  const types = [...new Set(normalCards.map(c => c.type).filter(Boolean))].sort();
+  types.forEach(t => $('#filter-type').innerHTML += `<option value="${t}">${t}</option>`);
 }
 
 function applyFilters() {
@@ -144,12 +148,14 @@ function applyFilters() {
   const location = $('#filter-location').value;
   const action = $('#filter-action').value;
   const level = $('#filter-level').value;
+  const type = $('#filter-type').value;
   const search = $('#search').value.trim().toLowerCase();
 
   if (suit) cards = cards.filter(c => c.suit === suit);
   if (location) cards = cards.filter(c => c.location === location);
   if (action) cards = cards.filter(c => c.actions && c.actions[action]);
   if (level) cards = cards.filter(c => c.level === Number(level));
+  if (type) cards = cards.filter(c => c.type === type);
 
   if (search) {
     // Support "action1 + action2" syntax for co-occurrence
@@ -174,7 +180,7 @@ function applyFilters() {
 
 function cardBlob(c) {
   const parts = [
-    c.id, c.suit, c.location, `level${c.level}`,
+    c.id, c.suit, c.location, `level${c.level}`, c.type || '', c.name || '',
     ...Object.keys(c.actions || {}),
     ...Object.keys(c['impact icons'] || {}),
     c.patriot || '', c.prize || '',
@@ -192,6 +198,7 @@ function renderDashboard(cards) {
   d.appendChild(suitPanel(cards));
   d.appendChild(locationPanel(cards));
   d.appendChild(levelPanel(cards));
+  d.appendChild(typePanel(cards));
   d.appendChild(actionsPanel(cards));
   d.appendChild(actionCountPanel(cards));
   d.appendChild(coOccurrencePanel(cards));
@@ -269,6 +276,19 @@ function levelPanel(cards) {
     </tr>`
   ).join('');
   return panel('By Level', `<table><tr><th>Level</th><th>#</th><th></th></tr>${rows}</table>`, 'clickRows');
+}
+
+function typePanel(cards) {
+  const counts = countBy(cards, c => c.type || '(none)');
+  const max = Math.max(...Object.values(counts));
+  const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([type, n]) =>
+    `<tr class="clickable" data-filter="type" data-value="${type === '(none)' ? '' : type}">
+      <td>${type}</td>
+      <td class="num">${n}</td>
+      <td><span class="bar" style="width:${(n/max)*120}px"></span></td>
+    </tr>`
+  ).join('');
+  return panel('By Type', `<table><tr><th>Type</th><th>#</th><th></th></tr>${rows}</table>`, 'clickRows');
 }
 
 function actionsPanel(cards) {
@@ -577,12 +597,14 @@ function getFilteredCards() {
   const location = $('#filter-location').value;
   const action = $('#filter-action').value;
   const level = $('#filter-level').value;
+  const type = $('#filter-type').value;
   const search = $('#search').value.trim().toLowerCase();
 
   if (suit) cards = cards.filter(c => c.suit === suit);
   if (location) cards = cards.filter(c => c.location === location);
   if (action) cards = cards.filter(c => c.actions && c.actions[action]);
   if (level) cards = cards.filter(c => c.level === Number(level));
+  if (type) cards = cards.filter(c => c.type === type);
   if (search) {
     const terms = search.split(/[+\s]+/).map(t => t.trim()).filter(Boolean);
     cards = cards.filter(c => {
@@ -611,6 +633,7 @@ function renderCard(c) {
     <span class="card-info">
       <span class="tag ${c.suit}">${c.suit}</span>
       <span class="tag location">${c.location}</span>
+      ${c.type ? `<span style="color:#aaa;font-size:0.85em">${c.type}</span>` : ''}
       L${c.level}
       ${favored ? `<span class="tag ${favored}">fav:${favored}</span>` : ''}
       ${icons} ${actions}
