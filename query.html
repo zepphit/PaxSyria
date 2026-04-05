@@ -14,6 +14,7 @@
 
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 16px; }
   .panel.span-2 { grid-column: span 2; }
+  .panel.span-4 { grid-column: span 4; }
   .panel { background: #16213e; border-radius: 8px; padding: 16px; border: 1px solid #2a2a4a; }
   .panel h2 { margin-top: 0; }
 
@@ -63,17 +64,23 @@
   .stats-row { display: flex; gap: 24px; flex-wrap: wrap; margin: 8px 0; }
   .stat-box { text-align: center; }
 
-  .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
-  .filter-bar input, .filter-bar select { background: #16213e; border: 1px solid #3a3a5a; color: #e0e0e0; padding: 6px 10px; border-radius: 4px; font-size: 0.9em; }
-  .filter-bar input { width: 260px; }
-  .filter-bar select { min-width: 120px; }
-  .filter-bar label { font-size: 0.85em; color: #888; }
+  .filter-bar { display: flex; gap: 6px; flex-wrap: nowrap; align-items: center; margin: 16px 0; }
+  .filter-bar input, .filter-bar select { background: #16213e; border: 1px solid #3a3a5a; color: #e0e0e0; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; }
+  .filter-bar input { width: 180px; }
+  .filter-bar select { min-width: 0; }
+  .filter-bar label { font-size: 0.8em; color: #888; white-space: nowrap; }
 
   .detail-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #16213e; border: 2px solid #4a6fa5; border-radius: 10px; padding: 20px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
   .detail-popup h2 { margin-top: 0; }
   .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; }
   .close-btn { position: absolute; top: 10px; right: 14px; background: none; border: none; color: #888; font-size: 1.4em; cursor: pointer; }
   .close-btn:hover { color: #fff; }
+
+  .thumb-grid { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 0; }
+  .thumb-grid img { width: 80px; border-radius: 4px; border: 2px solid transparent; cursor: pointer; transition: border-color 0.15s, transform 0.15s; }
+  .thumb-grid img:hover { border-color: #e6c47f; transform: scale(1.05); }
+  .card-preview { position: fixed; z-index: 2000; pointer-events: none; box-shadow: 0 8px 30px rgba(0,0,0,0.6); border-radius: 8px; }
+  .card-preview img { display: block; width: 350px; border-radius: 8px; }
 
   .hidden { display: none; }
 
@@ -86,12 +93,15 @@
 
 <div class="filter-bar">
   <label>Filter:</label>
-  <input type="text" id="search" placeholder='e.g. "battle + betray", "Herat military"'>
-  <select id="filter-suit"><option value="">All suits</option></select>
-  <select id="filter-location"><option value="">All locations</option></select>
-  <select id="filter-action"><option value="">All actions</option></select>
-  <select id="filter-level"><option value="">All levels</option></select>
+  <input type="text" id="search" placeholder='e.g. "battle + betray"'>
   <select id="filter-type"><option value="">All types</option></select>
+  <select id="filter-suit"><option value="">All suits</option></select>
+  <select id="filter-level"><option value="">All levels</option></select>
+  <select id="filter-location"><option value="">All locations</option></select>
+  <select id="filter-icon"><option value="">All icons</option></select>
+  <select id="filter-action"><option value="">All actions</option></select>
+  <select id="filter-patriot"><option value="">All patriots</option></select>
+  <select id="filter-prize"><option value="">All prizes</option></select>
   <span id="results-count"></span>
 </div>
 
@@ -124,6 +134,9 @@ async function init() {
   $('#filter-action').addEventListener('change', applyFilters);
   $('#filter-level').addEventListener('change', applyFilters);
   $('#filter-type').addEventListener('change', applyFilters);
+  $('#filter-patriot').addEventListener('change', applyFilters);
+  $('#filter-prize').addEventListener('change', applyFilters);
+  $('#filter-icon').addEventListener('change', applyFilters);
   $('#popup-overlay').addEventListener('click', closePopup);
   $('#popup-close').addEventListener('click', closePopup);
 }
@@ -140,6 +153,12 @@ function populateFilters() {
   levels.forEach(l => $('#filter-level').innerHTML += `<option value="${l}">Level ${l}</option>`);
   const types = [...new Set(normalCards.map(c => c.type).filter(Boolean))].sort();
   types.forEach(t => $('#filter-type').innerHTML += `<option value="${t}">${t}</option>`);
+  const patriots = [...new Set(normalCards.map(c => c.patriot).filter(Boolean))].sort();
+  patriots.forEach(p => $('#filter-patriot').innerHTML += `<option value="${p}">${p}</option>`);
+  const prizes = [...new Set(normalCards.map(c => c.prize).filter(Boolean))].sort();
+  prizes.forEach(p => $('#filter-prize').innerHTML += `<option value="${p}">${p}</option>`);
+  const icons = [...new Set(normalCards.flatMap(c => Object.keys(c['impact icons'] || {})))].sort();
+  icons.forEach(i => $('#filter-icon').innerHTML += `<option value="${i}">${i}</option>`);
 }
 
 function applyFilters() {
@@ -156,6 +175,12 @@ function applyFilters() {
   if (action) cards = cards.filter(c => c.actions && c.actions[action]);
   if (level) cards = cards.filter(c => c.level === Number(level));
   if (type) cards = cards.filter(c => c.type === type);
+  const patriot = $('#filter-patriot').value;
+  if (patriot) cards = cards.filter(c => c.patriot === patriot);
+  const prize = $('#filter-prize').value;
+  if (prize) cards = cards.filter(c => c.prize === prize);
+  const icon = $('#filter-icon').value;
+  if (icon) cards = cards.filter(c => c['impact icons'] && c['impact icons'][icon] !== undefined);
 
   if (search) {
     // Support "action1 + action2" syntax for co-occurrence
@@ -195,19 +220,20 @@ function renderDashboard(cards) {
   d.innerHTML = '';
 
   d.appendChild(overviewPanel(cards));
-  d.appendChild(suitPanel(cards));
-  d.appendChild(locationPanel(cards));
-  d.appendChild(levelPanel(cards));
   d.appendChild(typePanel(cards));
-  d.appendChild(actionsPanel(cards));
-  d.appendChild(actionCountPanel(cards));
-  d.appendChild(coOccurrencePanel(cards));
+  d.appendChild(suitPanel(cards));
+  d.appendChild(levelPanel(cards));
+  d.appendChild(locationPanel(cards));
   d.appendChild(impactIconsPanel(cards));
   d.appendChild(iconCountPanel(cards));
   d.appendChild(favoredSuitPanel(cards));
-  d.appendChild(prizePanel(cards));
+  d.appendChild(actionsPanel(cards));
+  d.appendChild(actionCountPanel(cards));
+  d.appendChild(coOccurrencePanel(cards));
   d.appendChild(patriotPanel(cards));
+  d.appendChild(prizePanel(cards));
   d.appendChild(passivePanel(cards));
+  d.appendChild(thumbnailPanel(cards));
 }
 
 // --- Panels ---
@@ -391,7 +417,7 @@ function impactIconsPanel(cards) {
   const freq = {};
   cards.forEach(c => {
     Object.entries(c['impact icons'] || {}).forEach(([icon, count]) => {
-      if (icon === 'favored suit') return;
+      if (icon === 'favored suit') { freq[icon] = (freq[icon] || 0) + 1; return; }
       freq[icon] = (freq[icon] || 0) + count;
     });
   });
@@ -399,14 +425,13 @@ function impactIconsPanel(cards) {
   const cardCount = {};
   cards.forEach(c => {
     Object.keys(c['impact icons'] || {}).forEach(icon => {
-      if (icon === 'favored suit') return;
       cardCount[icon] = (cardCount[icon] || 0) + 1;
     });
   });
 
   const max = Math.max(...Object.values(freq));
   const rows = Object.entries(freq).sort((a,b) => b[1] - a[1]).map(([icon, total]) =>
-    `<tr class="clickable" data-show="icon" data-value="${icon}">
+    `<tr class="clickable" data-filter="icon" data-value="${icon}">
       <td><span class="tag icon">${icon}</span></td>
       <td class="num">${total}</td>
       <td class="num">${cardCount[icon]} cards</td>
@@ -414,9 +439,9 @@ function impactIconsPanel(cards) {
     </tr>`
   ).join('');
   return panel('Impact Icons', `
-    <p style="font-size:0.8em;color:#888;margin-bottom:8px">Total icon instances and how many cards carry each (click row for cards)</p>
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">Total icon instances and how many cards carry each (click to filter)</p>
     <table><tr><th>Icon</th><th>Total</th><th>Cards</th><th></th></tr>${rows}</table>
-  `, 'clickShowCards');
+  `, 'clickRows');
 }
 
 function iconCountPanel(cards) {
@@ -463,13 +488,13 @@ function prizePanel(cards) {
   const noPrize = cards.filter(c => !c.prize).length;
   const max = Math.max(...Object.values(counts));
   const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([prize, n]) =>
-    `<tr><td>${prize}</td><td class="num">${n}</td>
+    `<tr class="clickable" data-filter="prize" data-value="${prize}"><td>${prize}</td><td class="num">${n}</td>
      <td><span class="bar" style="width:${(n/max)*100}px;background:#5a8a5a"></span></td></tr>`
   ).join('');
   return panel('Prizes', `
     <p style="font-size:0.8em;color:#888;margin-bottom:8px">${cards.length - noPrize} cards have a prize, ${noPrize} don't</p>
     <table><tr><th>Prize</th><th>#</th><th></th></tr>${rows}</table>
-  `);
+  `, 'clickRows');
 }
 
 function patriotPanel(cards) {
@@ -478,13 +503,13 @@ function patriotPanel(cards) {
   const noPatriot = cards.filter(c => !c.patriot).length;
   const max = Math.max(1, ...Object.values(counts));
   const rows = Object.entries(counts).sort((a,b) => b[1] - a[1]).map(([p, n]) =>
-    `<tr><td>${p}</td><td class="num">${n}</td>
+    `<tr class="clickable" data-filter="patriot" data-value="${p}"><td>${p}</td><td class="num">${n}</td>
      <td><span class="bar" style="width:${(n/max)*100}px;background:#5a5a8a"></span></td></tr>`
   ).join('');
   return panel('Patriots', `
     <p style="font-size:0.8em;color:#888;margin-bottom:8px">${cards.length - noPatriot} cards have a patriot, ${noPatriot} don't</p>
     <table><tr><th>Patriot</th><th>#</th><th></th></tr>${rows}</table>
-  `);
+  `, 'clickRows');
 }
 
 function passivePanel(cards) {
@@ -521,6 +546,16 @@ function passivePanel(cards) {
   `);
 }
 
+function thumbnailPanel(cards) {
+  const thumbs = cards.map(c =>
+    `<img src="${c.image}" alt="${c.name || c.id}" data-card-img="${c.image}">`
+  ).join('');
+  return panel('Card Gallery', `
+    <p style="font-size:0.8em;color:#888;margin-bottom:8px">${cards.length} cards — hover to preview, click to enlarge</p>
+    <div class="thumb-grid">${thumbs}</div>
+  `, null, 'span-4');
+}
+
 // --- Helpers ---
 
 function countBy(arr, fn) {
@@ -540,7 +575,7 @@ function panel(title, html, behavior, extraClass) {
         const filter = tr.dataset.filter;
         const value = tr.dataset.value;
         const sel = $(`#filter-${filter}`);
-        if (sel) { sel.value = value; applyFilters(); }
+        if (sel) { sel.value = sel.value === value ? '' : value; applyFilters(); }
       });
     });
   }
@@ -681,6 +716,54 @@ function positionTooltip(e) {
   if (y + rect.height > window.innerHeight) y = e.clientY - rect.height - pad;
   tipEl.style.left = x + 'px';
   tipEl.style.top = y + 'px';
+}
+
+// Card preview on thumbnail hover
+const previewEl = document.createElement('div');
+previewEl.className = 'card-preview';
+previewEl.style.display = 'none';
+previewEl.innerHTML = '<img>';
+document.body.appendChild(previewEl);
+const previewImg = previewEl.querySelector('img');
+
+document.addEventListener('mouseover', e => {
+  const img = e.target.closest('.thumb-grid img');
+  if (!img) { previewEl.style.display = 'none'; return; }
+  previewImg.src = img.dataset.cardImg;
+  previewEl.style.display = 'block';
+  positionPreview(e);
+});
+
+document.addEventListener('mousemove', e => {
+  if (previewEl.style.display === 'block') positionPreview(e);
+});
+
+document.addEventListener('mouseout', e => {
+  if (e.target.closest('.thumb-grid img') && !e.relatedTarget?.closest?.('.thumb-grid img')) {
+    previewEl.style.display = 'none';
+  }
+});
+
+// Click thumbnail to open full size in popup
+document.addEventListener('click', e => {
+  const img = e.target.closest('.thumb-grid img');
+  if (!img) return;
+  previewEl.style.display = 'none';
+  $('#popup-content').innerHTML = `<div style="text-align:center"><img src="${img.dataset.cardImg}" style="max-width:100%;max-height:75vh;border-radius:8px"></div>`;
+  $('#popup').classList.remove('hidden');
+  $('#popup-overlay').classList.remove('hidden');
+});
+
+function positionPreview(e) {
+  const pad = 16;
+  const pw = 350, ph = previewEl.offsetHeight || 490;
+  let x = e.clientX + pad;
+  let y = e.clientY - ph / 2;
+  if (x + pw > window.innerWidth) x = e.clientX - pw - pad;
+  if (y < 10) y = 10;
+  if (y + ph > window.innerHeight - 10) y = window.innerHeight - ph - 10;
+  previewEl.style.left = x + 'px';
+  previewEl.style.top = y + 'px';
 }
 
 init();
