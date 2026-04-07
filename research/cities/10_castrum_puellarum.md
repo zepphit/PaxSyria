@@ -3,15 +3,18 @@
 | Field | Value |
 |-------|-------|
 | **Latin name** | Castrum Puellarum ("Castle of the Maidens") |
-| **Arabic name** | Most likely Qal'at al-Banat (قلعة البنات) — direct Arabic translation |
-| **Modern name** | Qal'at al-Banat (ruins, partially submerged by Lake Assad) |
-| **Approx. location** | West bank of the Euphrates, between Qal'at Ja'bar and Meskene (ancient Barbalissos), Raqqa Governorate, Syria |
+| **Arabic name** | Qal'at al-Banat (قلعة البنات) — or possibly a local name |
+| **Most likely modern name** | **Sari Seki** (Sariseki), Hatay Province, Turkey |
+| **Alternative identification** | Qal'at al-Banat on the Euphrates (less likely given geographic ordering) |
+| **Approx. location** | NW approach to the Syrian Gates, ~1 km from the sea, controlling the passage called "La Portella" between castle and coast |
 
-> **Note on identification**: "Castrum Puellarum" / "Castle of the Maidens" is a name used for several sites across medieval Europe (most famously Edinburgh Castle). In the Crusader Syrian context, the identification with **Qal'at al-Banat** on the Euphrates is the strongest candidate — it's the direct Arabic translation. However, given this site's position in a north-to-south list between Roche Roissol and Bathemolin (both likely in the Antioch frontier zone), there may be a different, more northerly Qal'at al-Banat that better fits the geographic ordering. The Euphrates identification should be treated with some caution.
+> **Updated identification (from Bathemolin research)**: The orient-latin.com fortress database identifies Castrum Puellarum with **Sari Seki** — a Templar fortress at the northwestern approach to the Syrian Gates, controlling a coastal passage called "La Portella." This fits the geographic ordering perfectly: the list proceeds from Roche Roissol → Castrum Puellarum (Sari Seki) → Bathemolin (coastal road) → Alexandretta — all along the Amanus coastal route. The earlier Euphrates identification (Qal'at al-Banat) is geographically implausible given the surrounding entries.
 
 ## 1. Identity & Status
 
-If the Euphrates identification is correct, this was a fortress controlling a river crossing on the west bank of the Euphrates. The castle was documented by archaeologists before its partial submersion by the Tabqa Dam reservoir (Lake Assad) in the 1970s.
+If the Sari Seki identification is correct (now the preferred reading), this was a **Templar fortress at the NW approach to the Syrian Gates**, controlling a narrow coastal passage ("La Portella") between the castle and the sea — the southern entrance to the Cilician plain. It was part of the same Amanus pass defense system as Baghras and Trapessac.
+
+The alternative Euphrates identification (Qal'at al-Banat, partially submerged by Lake Assad) is now considered less likely given the geographic ordering of the cities list.
 
 ### Control timeline
 

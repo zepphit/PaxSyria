@@ -48,10 +48,10 @@ For each city/fortress provided, gather:
 
 ### Batch tracker
 
-| Batch | Cities | Status |
-|-------|--------|--------|
-| 1 | #1–10: Turbessel → Castrum Puellarum | **Complete** |
-| 2 | #11–20: Bathemolin → Caston | Pending |
+| Batch | Cities | Status | Flags |
+|-------|--------|--------|-------|
+| 1 | #1–10: Turbessel → Castrum Puellarum | **Complete** | Castrum Puellarum now re-identified as **Sari Seki** (NW approach to Syrian Gates) per orient-latin.com — fits the coastal ordering. Hion Sinab, Platta, Roche Roissol: minor sites without secure modern IDs; check Cahen's *La Syrie du Nord* (1940). |
+| 2 | #11–20: Bathemolin → Caston | **Complete** | Bathemolin: **completely unidentifiable** in online sources — zero results across all variants. Likely on the coastal road between Sari Seki and Alexandretta; may require Molin's *Unknown Crusader Castles* (2001) to identify. Marbie: also unidentified, somewhere between Jebel Barisha and Baghras. Koumith: uncertain ID, possibly Cursat/Qurzahil. |
 | 3 | #21–30: Toiurdeda → Sarmada | Pending |
 | 4 | #31–40: Turmanin → Armanaz | Pending |
 | 5 | #41–50: Ma'arrat Misrin → Cavea Belmyr | Pending |
